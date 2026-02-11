@@ -7,34 +7,41 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    body { box-sizing: border-box; }
+    body { box-sizing: border-box; overflow-x: hidden; }
     * { font-family: 'Space Grotesk', sans-serif; }
     .font-display { font-family: 'Syne', sans-serif; }
     
+    /* Animacje podstawowe */
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-20px) rotate(2deg); }
     }
-    
     @keyframes pulse-glow {
       0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
       50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8), 0 0 60px rgba(236, 72, 153, 0.4); }
     }
-    
     @keyframes gradient-shift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    
     @keyframes slide-up {
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
     @keyframes scale-in {
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
+    }
+
+    /* NOWE: Animacje przewijania tła (Marquee) */
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes scroll-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
     }
     
     .animate-float { animation: float 6s ease-in-out infinite; }
@@ -42,6 +49,9 @@
     .animate-gradient { background-size: 200% 200%; animation: gradient-shift 4s ease infinite; }
     .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
     .animate-scale-in { animation: scale-in 0.6s ease-out forwards; }
+    
+    .animate-scroll-left { animation: scroll-left 40s linear infinite; }
+    .animate-scroll-right { animation: scroll-right 40s linear infinite; }
     
     .delay-100 { animation-delay: 0.1s; }
     .delay-200 { animation-delay: 0.2s; }
@@ -77,22 +87,6 @@
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0a0a0f; }
     ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #a855f7, #ec4899); border-radius: 4px; }
-
-    @keyframes scroll-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @keyframes scroll-right {
-      0% { transform: translateX(-50%); }
-      100% { transform: translateX(0); }
-    }
-    
-    .animate-scroll-left {
-      animation: scroll-left 30s linear infinite;
-    }
-    .animate-scroll-right {
-      animation: scroll-right 30s linear infinite;
-    }
   </style>
 </head>
 <body class="h-full bg-[#0a0a0f] text-white overflow-auto">
@@ -127,136 +121,9 @@
     </nav>
 
     <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-purple-900/10 to-pink-900/10 rounded-full blur-3xl"></div>
-      </div>
-      
-      <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(168,85,247,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.3) 1px, transparent 1px); background-size: 50px 50px;"></div>
-      
-      <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="opacity-0 animate-slide-up">
-          <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-            ✨ Montaż short-form content
-          </span>
-        </div>
-        
-        <h1 id="hero-title" class="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 opacity-0 animate-slide-up delay-100">
-          Zamieniam zwykłe klipy<br>
-          <span class="gradient-text animate-gradient">w viralowe rolki</span>
-        </h1>
-        
-        <p id="hero-subtitle" class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 opacity-0 animate-slide-up delay-200">
-          Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. 
-          Instagram, TikTok, YouTube Shorts – wiem, co działa.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-slide-up delay-300">
-          <a href="#portfolio" class="btn-primary px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2">
-            <span>Zobacz realizacje</span>
-            <span>→</span>
-          </a>
-          <a href="#contact" class="px-8 py-4 rounded-full font-semibold text-lg glass-card hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
-            <span>Napisz do mnie</span>
-            <span>💬</span>
-          </a>
-        </div>
-        
-        <div class="grid grid-cols-3 gap-4 sm:gap-8 mt-16 max-w-2xl mx-auto opacity-0 animate-slide-up delay-400">
-          <div class="glass-card rounded-2xl p-4 sm:p-6">
-            <div class="text-2xl sm:text-4xl font-display font-bold gradient-text">500+</div>
-            <div class="text-xs sm:text-sm text-gray-400 mt-1">Zmontowanych rolek</div>
-          </div>
-          <div class="glass-card rounded-2xl p-4 sm:p-6">
-            <div class="text-2xl sm:text-4xl font-display font-bold gradient-text">50M+</div>
-            <div class="text-xs sm:text-sm text-gray-400 mt-1">Wyświetleń</div>
-          </div>
-          <div class="glass-card rounded-2xl p-4 sm:p-6">
-            <div class="text-2xl sm:text-4xl font-display font-bold gradient-text">48h</div>
-            <div class="text-xs sm:text-sm text-gray-400 mt-1">Czas realizacji</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="py-20 sm:py-32 relative">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div class="relative order-2 lg:order-1">
-            <div class="aspect-square max-w-md mx-auto relative">
-              <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-pink-600/30 rounded-3xl blur-2xl"></div>
-              <div class="relative glass-card rounded-3xl p-8 h-full flex flex-col items-center justify-center">
-                <div class="text-8xl mb-6">🎥</div>
-                <div class="flex gap-4 mb-6">
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center text-xl">📱</div>
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-xl">🎬</div>
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-xl">▶️</div>
-                </div>
-                <div class="flex flex-wrap gap-2 justify-center">
-                  <span class="px-3 py-1 rounded-full text-xs bg-purple-500/20 text-purple-300">Instagram</span>
-                  <span class="px-3 py-1 rounded-full text-xs bg-pink-500/20 text-pink-300">TikTok</span>
-                  <span class="px-3 py-1 rounded-full text-xs bg-red-500/20 text-red-300">YouTube</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="order-1 lg:order-2">
-            <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-              👋 Poznajmy się
-            </span>
-            <h2 id="about-title" class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-              Kim jestem?
-            </h2>
-            <div id="about-text" class="space-y-4 text-gray-400 text-base sm:text-lg">
-              <p>
-                Jestem <span class="text-white font-medium">montażystą short-form contentu</span>, 
-                który żyje trendami i algorytmami. Przez ostatnie 3 lata pomogłem dziesiątkom 
-                twórców i marek <span class="text-purple-400">zwiększyć zasięgi i zaangażowanie</span>.
-              </p>
-              <p>
-                Wiem, że masz milion rzeczy na głowie – nagrywanie, prowadzenie biznesu, 
-                odpowiadanie na wiadomości. <span class="text-white font-medium">Montaż? To moja działka.</span>
-              </p>
-              <p>
-                Tworzę rolki, które <span class="text-pink-400">zatrzymują scroll</span>, 
-                budują <span class="text-purple-400">retencję</span> i sprawiają, że algorytm 
-                Cię kocha. Hook, dynamika, napisy, muzyka – wszystko dopracowane pod viralowy potencjał.
-              </p>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4 mt-8">
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">🎯</div>
-                <div class="font-medium">Retencja</div>
-                <div class="text-sm text-gray-400">Trzymam widza do końca</div>
-              </div>
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">📈</div>
-                <div class="font-medium">Zasięgi</div>
-                <div class="text-sm text-gray-400">Optymalizacja pod algorytmy</div>
-              </div>
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">🔥</div>
-                <div class="font-medium">Trendy</div>
-                <div class="text-sm text-gray-400">Zawsze na czasie</div>
-              </div>
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">⚡</div>
-                <div class="font-medium">Szybkość</div>
-                <div class="text-sm text-gray-400">Realizacja w 48h</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       
       <div class="absolute inset-0 overflow-hidden opacity-20 pointer-events-none select-none">
-        <div class="absolute inset-0 bg-[#0a0a0f] z-10 opacity-50" style="background: radial-gradient(circle, transparent 0%, #0a0a0f 80%);"></div>
+        <div class="absolute inset-0 bg-[#0a0a0f] z-10 opacity-60" style="background: radial-gradient(circle, transparent 20%, #0a0a0f 90%);"></div>
         
         <div class="flex flex-col gap-6 -rotate-3 scale-110 -translate-y-20">
           
@@ -339,6 +206,94 @@
             <div class="text-xs sm:text-sm text-gray-400 mt-1">Czas realizacji</div>
           </div>
         </div>
+      </div>
+      
+      </section>
+
+    <section id="about" class="py-20 sm:py-32 relative">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="relative order-2 lg:order-1">
+            <div class="aspect-square max-w-md mx-auto relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-pink-600/30 rounded-3xl blur-2xl"></div>
+              <div class="relative glass-card rounded-3xl p-8 h-full flex flex-col items-center justify-center">
+                <div class="text-8xl mb-6">🎥</div>
+                <div class="flex gap-4 mb-6">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center text-xl">📱</div>
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-xl">🎬</div>
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-xl">▶️</div>
+                </div>
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span class="px-3 py-1 rounded-full text-xs bg-purple-500/20 text-purple-300">Instagram</span>
+                  <span class="px-3 py-1 rounded-full text-xs bg-pink-500/20 text-pink-300">TikTok</span>
+                  <span class="px-3 py-1 rounded-full text-xs bg-red-500/20 text-red-300">YouTube</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="order-1 lg:order-2">
+            <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
+              👋 Poznajmy się
+            </span>
+            <h2 id="about-title" class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+              Kim jestem?
+            </h2>
+            <div id="about-text" class="space-y-4 text-gray-400 text-base sm:text-lg">
+              <p>
+                Jestem <span class="text-white font-medium">montażystą short-form contentu</span>, 
+                który żyje trendami i algorytmami. Przez ostatnie 3 lata pomogłem dziesiątkom 
+                twórców i marek <span class="text-purple-400">zwiększyć zasięgi i zaangażowanie</span>.
+              </p>
+              <p>
+                Wiem, że masz milion rzeczy na głowie – nagrywanie, prowadzenie biznesu, 
+                odpowiadanie na wiadomości. <span class="text-white font-medium">Montaż? To moja działka.</span>
+              </p>
+              <p>
+                Tworzę rolki, które <span class="text-pink-400">zatrzymują scroll</span>, 
+                budują <span class="text-purple-400">retencję</span> i sprawiają, że algorytm 
+                Cię kocha. Hook, dynamika, napisy, muzyka – wszystko dopracowane pod viralowy potencjał.
+              </p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4 mt-8">
+              <div class="glass-card rounded-xl p-4">
+                <div class="text-2xl mb-2">🎯</div>
+                <div class="font-medium">Retencja</div>
+                <div class="text-sm text-gray-400">Trzymam widza do końca</div>
+              </div>
+              <div class="glass-card rounded-xl p-4">
+                <div class="text-2xl mb-2">📈</div>
+                <div class="font-medium">Zasięgi</div>
+                <div class="text-sm text-gray-400">Optymalizacja pod algorytmy</div>
+              </div>
+              <div class="glass-card rounded-xl p-4">
+                <div class="text-2xl mb-2">🔥</div>
+                <div class="font-medium">Trendy</div>
+                <div class="text-sm text-gray-400">Zawsze na czasie</div>
+              </div>
+              <div class="glass-card rounded-xl p-4">
+                <div class="text-2xl mb-2">⚡</div>
+                <div class="font-medium">Szybkość</div>
+                <div class="text-sm text-gray-400">Realizacja w 48h</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-900/50 to-pink-900/50"></div>
+      <div class="relative max-w-4xl mx-auto px-4 text-center">
+        <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">
+          Przestań tracić czas na montaż 🎬
+        </h3>
+        <p class="text-gray-300 mb-6">Skup się na tworzeniu – montaż zostaw mi.</p>
+        <a href="#contact" class="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold">
+          <span>Zacznijmy współpracę</span>
+          <span>🚀</span>
+        </a>
       </div>
     </section>
 
