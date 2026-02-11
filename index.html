@@ -1,913 +1,268 @@
 <!DOCTYPE html>
-<html lang="pl" class="h-full">
+<html lang="pl" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Montażysty Rolek</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <style>
-    body { box-sizing: border-box; background-color: #0a0a0f; overflow-x: hidden; }
-    * { font-family: 'Space Grotesk', sans-serif; }
-    .font-display { font-family: 'Syne', sans-serif; }
-    
-    /* FIX: Wymuszenie akceleracji sprzętowej dla nawigacji (zapobiega miganiu) */
-    nav {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      will-change: transform;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Video Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
 
-    /* Animacja nieskończonego przewijania (Marquee) */
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    
-    .animate-marquee {
-      animation: marquee 40s linear infinite;
-      width: max-content;
-      will-change: transform;
-    }
-    
-    .group:hover .animate-marquee {
-      animation-play-state: paused;
-    }
-    
-    /* Pozostałe animacje */
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
-      50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8), 0 0 60px rgba(236, 72, 153, 0.4); }
-    }
-    
-    @keyframes gradient-shift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    
-    @keyframes slide-up {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .animate-gradient { background-size: 200% 200%; animation: gradient-shift 4s ease infinite; }
-    .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
-    
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-500 { animation-delay: 0.5s; }
-    
-    .gradient-text {
-      background: linear-gradient(135deg, #a855f7, #ec4899, #f97316);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-    .card-hover:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.3); }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      transition: all 0.3s ease;
-    }
-    .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(168, 85, 247, 0.5); }
-    
-    .glass-card {
-      background: rgba(30, 30, 40, 0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(168, 85, 247, 0.2);
-    }
-    
-    .portfolio-card { aspect-ratio: 9/16; }
-    
-    html { scroll-behavior: smooth; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #a855f7, #ec4899); border-radius: 4px; }
-  </style>
+        /* Akcent kolorystyczny - NEON LIME */
+        .text-neon { color: #ccff00; }
+        .bg-neon { background-color: #ccff00; }
+        .border-neon { border-color: #ccff00; }
+        .hover-text-neon:hover { color: #ccff00; }
+        
+        /* Płynne przewijanie tekstu (Marquee) */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            gap: 2rem;
+        }
+        .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-around;
+            min-width: 100%;
+            gap: 2rem;
+            animation: scroll 20s linear infinite;
+        }
+
+        /* Karty BENTO */
+        .bento-card {
+            background-color: #111;
+            border: 1px solid #222;
+            border-radius: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card:hover {
+            border-color: #444;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px -10px rgba(204, 255, 0, 0.1);
+        }
+
+        /* Ukrycie paska przewijania w nawigacji */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </head>
-<body class="h-full bg-[#0a0a0f] text-white overflow-x-hidden">
-  <div id="app" class="w-full h-full">
-    
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-md border-b border-purple-500/10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class="flex items-center gap-2">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center animate-pulse-glow">
-              <span class="text-xl">🎬</span>
+<body class="antialiased selection:bg-[#ccff00] selection:text-black">
+
+    <nav class="fixed w-full z-50 bg-[#050505] border-b border-white/10 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold font-display tracking-tight">
+                REEL<span class="text-neon">CRAFT</span>
             </div>
-            <span class="font-display text-xl font-bold">REELCRAFT</span>
-          </div>
-          <div class="hidden md:flex items-center gap-8">
-            <a href="#about" class="text-gray-400 hover:text-white transition-colors">O mnie</a>
-            <a href="#portfolio" class="text-gray-400 hover:text-white transition-colors">Portfolio</a>
-            <a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Oferta</a>
-            <a href="#contact" class="btn-primary px-5 py-2 rounded-full font-medium">Kontakt</a>
-          </div>
-          <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <a href="#work" class="hover:text-white transition-colors">Realizacje</a>
+                <a href="#services" class="hover:text-white transition-colors">Oferta</a>
+                <a href="#about" class="hover:text-white transition-colors">O mnie</a>
+            </div>
+            <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-neon transition-colors">
+                Współpraca
+            </a>
         </div>
-      </div>
-      <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-purple-500/20">
-        <div class="px-4 py-4 space-y-3">
-          <a href="#about" class="block text-gray-400 hover:text-white py-2">O mnie</a>
-          <a href="#portfolio" class="block text-gray-400 hover:text-white py-2">Portfolio</a>
-          <a href="#pricing" class="block text-gray-400 hover:text-white py-2">Oferta</a>
-          <a href="#contact" class="btn-primary block text-center px-5 py-3 rounded-full font-medium mt-4">Kontakt</a>
-        </div>
-      </div>
     </nav>
 
-    <section class="min-h-screen flex flex-col justify-center relative overflow-hidden pt-20">
-      
-      <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[100px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-pink-900/20 rounded-full blur-[100px]"></div>
-        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(168,85,247,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.3) 1px, transparent 1px); background-size: 50px 50px;"></div>
-      </div>
-
-      <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
-        <div class="opacity-0 animate-slide-up">
-          <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-            ✨ Montaż short-form content
-          </span>
+    <section class="pt-32 pb-16 md:pt-48 md:pb-32 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-neon font-medium mb-8 tracking-wider uppercase">
+                • Dostępne terminy na Luty
+            </div>
+            <h1 class="text-5xl md:text-8xl font-black leading-tight mb-8">
+                MONTAŻ KTÓRY<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">ZATRZYMUJE SCROLL</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light">
+                Specjalizuję się w dynamicznych formatach 9:16. TikTok, Reels, Shorts. 
+                Tworzę content, który algorytmy promują, a ludzie oglądają do końca.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#work" class="bg-neon text-black px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform">
+                    Zobacz Portfolio
+                </a>
+                <a href="#contact" class="px-8 py-4 rounded-full font-bold text-lg border border-white/20 hover:bg-white/5 transition-colors">
+                    Napisz do mnie
+                </a>
+            </div>
         </div>
-        
-        <h1 id="hero-title" class="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 opacity-0 animate-slide-up delay-100">
-          Zamieniam zwykłe klipy<br>
-          <span class="gradient-text animate-gradient">w viralowe rolki</span>
-        </h1>
-        
-        <p id="hero-subtitle" class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 opacity-0 animate-slide-up delay-200">
-          Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. 
-          Instagram, TikTok, YouTube Shorts – wiem, co działa.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-slide-up delay-300">
-          <a href="#portfolio" class="btn-primary px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2">
-            <span>Zobacz realizacje</span>
-            <span>→</span>
-          </a>
-          <a href="#contact" class="px-8 py-4 rounded-full font-semibold text-lg glass-card hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
-            <span>Napisz do mnie</span>
-            <span>💬</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="relative w-full opacity-0 animate-slide-up delay-400 group mt-auto mb-10">
-        <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0a0a0f] to-transparent z-20 pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0a0a0f] to-transparent z-20 pointer-events-none"></div>
-
-        <div class="flex animate-marquee hover:[animation-play-state:paused]">
-          
-          <div class="flex gap-6 px-3">
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/2a1b3d/a855f7?text=Rolka+1" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/3d1b33/ec4899?text=Rolka+2" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/1b2a3d/3b82f6?text=Rolka+3" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/1b3d2a/22c55e?text=Rolka+4" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/3d361b/eab308?text=Rolka+5" class="w-full h-full object-cover">
-            </div>
-          </div>
-
-          <div class="flex gap-6 px-3">
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/2a1b3d/a855f7?text=Rolka+1" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/3d1b33/ec4899?text=Rolka+2" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/1b2a3d/3b82f6?text=Rolka+3" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/1b3d2a/22c55e?text=Rolka+4" class="w-full h-full object-cover">
-            </div>
-            <div class="relative w-48 aspect-[9/16] rounded-xl overflow-hidden border border-purple-500/30 transform transition hover:scale-105 hover:border-purple-500 cursor-pointer bg-gray-800">
-              <img src="https://placehold.co/400x710/3d361b/eab308?text=Rolka+5" class="w-full h-full object-cover">
-            </div>
-          </div>
-
-        </div>
-      </div>
     </section>
 
-    <section id="about" class="py-20 sm:py-32 relative">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div class="relative order-2 lg:order-1">
-            <div class="aspect-square max-w-md mx-auto relative">
-              <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-pink-600/30 rounded-3xl blur-2xl"></div>
-              <div class="relative glass-card rounded-3xl p-8 h-full flex flex-col items-center justify-center">
-                <div class="text-8xl mb-6">🎥</div>
-                <div class="flex gap-4 mb-6">
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center text-xl">📱</div>
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-xl">🎬</div>
-                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-xl">▶️</div>
-                </div>
-                <div class="flex flex-wrap gap-2 justify-center">
-                  <span class="px-3 py-1 rounded-full text-xs bg-purple-500/20 text-purple-300">Instagram</span>
-                  <span class="px-3 py-1 rounded-full text-xs bg-pink-500/20 text-pink-300">TikTok</span>
-                  <span class="px-3 py-1 rounded-full text-xs bg-red-500/20 text-red-300">YouTube</span>
-                </div>
-              </div>
+    <div class="w-full bg-[#ccff00] text-black py-3 overflow-hidden border-y border-black">
+        <div class="marquee-container font-display font-black text-xl md:text-2xl uppercase tracking-widest italic">
+            <div class="marquee-content">
+                <span>Instagram Reels</span> • <span>TikTok Editing</span> • <span>YouTube Shorts</span> • <span>Viral Content</span> • <span>Sound Design</span> • <span>Motion Graphics</span> •
+                <span>Instagram Reels</span> • <span>TikTok Editing</span> • <span>YouTube Shorts</span> • <span>Viral Content</span> • <span>Sound Design</span> • <span>Motion Graphics</span> •
             </div>
-          </div>
-          
-          <div class="order-1 lg:order-2">
-            <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-              👋 Poznajmy się
-            </span>
-            <h2 id="about-title" class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-              Kim jestem?
-            </h2>
-            <div id="about-text" class="space-y-4 text-gray-400 text-base sm:text-lg">
-              <p>
-                Jestem <span class="text-white font-medium">montażystą short-form contentu</span>, 
-                który żyje trendami i algorytmami. Przez ostatnie 3 lata pomogłem dziesiątkom 
-                twórców i marek <span class="text-purple-400">zwiększyć zasięgi i zaangażowanie</span>.
-              </p>
-              <p>
-                Wiem, że masz milion rzeczy na głowie – nagrywanie, prowadzenie biznesu, 
-                odpowiadanie na wiadomości. <span class="text-white font-medium">Montaż? To moja działka.</span>
-              </p>
-              <p>
-                Tworzę rolki, które <span class="text-pink-400">zatrzymują scroll</span>, 
-                budują <span class="text-purple-400">retencję</span> i sprawiają, że algorytm 
-                Cię kocha. Hook, dynamika, napisy, muzyka – wszystko dopracowane pod viralowy potencjał.
-              </p>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4 mt-8">
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">🎯</div>
-                <div class="font-medium">Retencja</div>
-                <div class="text-sm text-gray-400">Trzymam widza do końca</div>
-              </div>
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">📈</div>
-                <div class="font-medium">Zasięgi</div>
-                <div class="text-sm text-gray-400">Optymalizacja pod algorytmy</div>
-              </div>
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">🔥</div>
-                <div class="font-medium">Trendy</div>
-                <div class="text-sm text-gray-400">Zawsze na czasie</div>
-              </div>
-              <div class="glass-card rounded-xl p-4">
-                <div class="text-2xl mb-2">⚡</div>
-                <div class="font-medium">Szybkość</div>
-                <div class="text-sm text-gray-400">Realizacja w 48h</div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <section class="py-12 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-r from-purple-900/50 to-pink-900/50"></div>
-      <div class="relative max-w-4xl mx-auto px-4 text-center">
-        <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">
-          Przestań tracić czas na montaż 🎬
-        </h3>
-        <p class="text-gray-300 mb-6">Skup się na tworzeniu – montaż zostaw mi.</p>
-        <a href="#contact" class="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold">
-          <span>Zacznijmy współpracę</span>
-          <span>🚀</span>
-        </a>
-      </div>
-    </section>
-
-    <section id="portfolio" class="py-20 sm:py-32">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 sm:mb-16">
-          <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-            🎬 Moje realizacje
-          </span>
-          <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Portfolio & Showreel
-          </h2>
-          <p class="text-gray-400 max-w-2xl mx-auto">
-            Zobacz przykłady moich montaży – od dynamicznych reelsów po edukacyjne shorty.
-          </p>
-        </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card relative group">
-            <iframe 
-              class="absolute top-0 left-0 w-full h-full object-cover"
-              src="https://www.youtube.com/embed/55KkqrIlT7w?autoplay=1&mute=1&loop=1&playlist=55KkqrIlT7w&controls=0&showinfo=0&rel=0&modestbranding=1" 
-              title="Realizacja Portfolio" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-            
-            <div class="absolute bottom-4 right-4 bg-black/60 px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1">
-              <span>Wyciszone (Autoplay)</span>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card group cursor-pointer">
-            <div class="h-full bg-gradient-to-br from-pink-600/20 to-orange-600/20 flex flex-col items-center justify-center p-4 relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span class="text-5xl sm:text-6xl mb-4">👩‍🍳</span>
-              <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="text-sm font-medium">Food Creator</div>
-                <div class="text-xs text-gray-400">1.8M wyświetleń</div>
-              </div>
-              <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-sm">▶️</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card group cursor-pointer">
-            <div class="h-full bg-gradient-to-br from-blue-600/20 to-purple-600/20 flex flex-col items-center justify-center p-4 relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span class="text-5xl sm:text-6xl mb-4">📚</span>
-              <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="text-sm font-medium">Edukacja Online</div>
-                <div class="text-xs text-gray-400">3.2M wyświetleń</div>
-              </div>
-              <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-sm">▶️</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card group cursor-pointer">
-            <div class="h-full bg-gradient-to-br from-green-600/20 to-teal-600/20 flex flex-col items-center justify-center p-4 relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span class="text-5xl sm:text-6xl mb-4">🛍️</span>
-              <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="text-sm font-medium">E-commerce Brand</div>
-                <div class="text-xs text-gray-400">4.1M wyświetleń</div>
-              </div>
-              <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-sm">▶️</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card group cursor-pointer">
-            <div class="h-full bg-gradient-to-br from-yellow-600/20 to-red-600/20 flex flex-col items-center justify-center p-4 relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span class="text-5xl sm:text-6xl mb-4">🎸</span>
-              <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="text-sm font-medium">Muzyk</div>
-                <div class="text-xs text-gray-400">890K wyświetleń</div>
-              </div>
-              <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-sm">▶️</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card group cursor-pointer">
-            <div class="h-full bg-gradient-to-br from-indigo-600/20 to-blue-600/20 flex flex-col items-center justify-center p-4 relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span class="text-5xl sm:text-6xl mb-4">💼</span>
-              <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="text-sm font-medium">Business Coach</div>
-                <div class="text-xs text-gray-400">1.5M wyświetleń</div>
-              </div>
-              <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-sm">▶️</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card group cursor-pointer">
-            <div class="h-full bg-gradient-to-br from-rose-600/20 to-pink-600/20 flex flex-col items-center justify-center p-4 relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span class="text-5xl sm:text-6xl mb-4">💄</span>
-              <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="text-sm font-medium">Beauty Influencer</div>
-                <div class="text-xs text-gray-400">2.1M wyświetleń</div>
-              </div>
-              <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-sm">▶️</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl overflow-hidden portfolio-card group cursor-pointer">
-            <div class="h-full bg-gradient-to-br from-cyan-600/20 to-blue-600/20 flex flex-col items-center justify-center p-4 relative">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span class="text-5xl sm:text-6xl mb-4">🏠</span>
-              <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="text-sm font-medium">Real Estate</div>
-                <div class="text-xs text-gray-400">1.2M wyświetleń</div>
-              </div>
-              <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-sm">▶️</span>
-              </div>
-            </div>
-          </div>
-          
-        </div> </div> </section>
-
-    <section id="pricing" class="py-20 sm:py-32 relative">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent"></div>
-      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 sm:mb-16">
-          <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-            💰 Oferta
-          </span>
-          <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Pakiety montażu
-          </h2>
-          <p class="text-gray-400 max-w-2xl mx-auto">
-            Wybierz pakiet dopasowany do Twoich potrzeb. Każdy zawiera pełen zestaw – od hooków po napisy.
-          </p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-          <div class="card-hover glass-card rounded-3xl p-6 sm:p-8 relative">
-            <div class="text-3xl mb-4">🌱</div>
-            <h3 class="font-display text-2xl font-bold mb-2">Starter</h3>
-            <p class="text-gray-400 text-sm mb-6">Idealny na start przygody z rolkami</p>
-            <div class="mb-6">
-              <span class="text-4xl font-display font-bold">10</span>
-              <span class="text-gray-400"> rolek/msc</span>
-            </div>
-            <ul class="space-y-3 mb-8">
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Profesjonalne cięcia</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Napisy + animacje</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Dobór muzyki</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>1 poprawka na rolkę</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm text-gray-500">
-                <span>✗</span>
-                <span>Priorytetowa realizacja</span>
-              </li>
-            </ul>
-            <a href="#contact" class="block w-full text-center py-3 rounded-full glass-card hover:bg-white/10 transition-colors font-medium">
-              Wybierz pakiet
-            </a>
-          </div>
-          
-          <div class="card-hover glass-card rounded-3xl p-6 sm:p-8 relative border-2 border-purple-500/50 animate-pulse-glow">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-sm font-medium">
-              🔥 Najpopularniejszy
-            </div>
-            <div class="text-3xl mb-4">🚀</div>
-            <h3 class="font-display text-2xl font-bold mb-2">Pro</h3>
-            <p class="text-gray-400 text-sm mb-6">Dla twórców budujących markę</p>
-            <div class="mb-6">
-              <span class="text-4xl font-display font-bold gradient-text">20</span>
-              <span class="text-gray-400"> rolek/msc</span>
-            </div>
-            <ul class="space-y-3 mb-8">
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Wszystko ze Startera</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Zaawansowane efekty</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Hooki pod virale</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>2 poprawki na rolkę</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Priorytetowa realizacja</span>
-              </li>
-            </ul>
-            <a href="#contact" class="btn-primary block w-full text-center py-3 rounded-full font-medium">
-              Wybierz pakiet
-            </a>
-          </div>
-          
-          <div class="card-hover glass-card rounded-3xl p-6 sm:p-8 relative">
-            <div class="text-3xl mb-4">👑</div>
-            <h3 class="font-display text-2xl font-bold mb-2">Enterprise</h3>
-            <p class="text-gray-400 text-sm mb-6">Pełna obsługa Twojego contentu</p>
-            <div class="mb-6">
-              <span class="text-4xl font-display font-bold">30+</span>
-              <span class="text-gray-400"> rolek/msc</span>
-            </div>
-            <ul class="space-y-3 mb-8">
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Wszystko z Pro</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Strategia contentowa</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Dedykowany support</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Nieograniczone poprawki</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm">
-                <span class="text-green-400">✓</span>
-                <span>Realizacja 24h</span>
-              </li>
-            </ul>
-            <a href="#contact" class="block w-full text-center py-3 rounded-full glass-card hover:bg-white/10 transition-colors font-medium">
-              Napisz po wycenę
-            </a>
-          </div>
-        </div>
-        
-        <div class="mt-16 glass-card rounded-3xl p-6 sm:p-8">
-          <h3 class="font-display text-xl sm:text-2xl font-bold mb-6 text-center">Co zawiera każda rolka?</h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">✂️</div>
-              <div class="font-medium text-sm">Dynamiczne cięcia</div>
-            </div>
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">📝</div>
-              <div class="font-medium text-sm">Animowane napisy</div>
-            </div>
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">🎵</div>
-              <div class="font-medium text-sm">Trending audio</div>
-            </div>
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">🪝</div>
-              <div class="font-medium text-sm">Hook na start</div>
-            </div>
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">🎨</div>
-              <div class="font-medium text-sm">Color grading</div>
-            </div>
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">🔊</div>
-              <div class="font-medium text-sm">Sound design</div>
-            </div>
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">📱</div>
-              <div class="font-medium text-sm">Format 9:16</div>
-            </div>
-            <div class="text-center p-4">
-              <div class="text-3xl mb-2">⚡</div>
-              <div class="font-medium text-sm">Speed ramping</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 sm:py-32">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 sm:mb-16">
-          <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-            🎯 Dlaczego ja?
-          </span>
-          <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Co mnie wyróżnia?
-          </h2>
-        </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-2xl mb-4">
-              ⚡
-            </div>
-            <h3 class="font-display text-xl font-bold mb-2">Błyskawiczna realizacja</h3>
-            <p class="text-gray-400 text-sm">
-              48 godzin i Twoja rolka jest gotowa. Bez przeciągania, bez wymówek. Czas to pieniądz – szanuję Twój.
-            </p>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center text-2xl mb-4">
-              📈
-            </div>
-            <h3 class="font-display text-xl font-bold mb-2">Znajomość algorytmów</h3>
-            <p class="text-gray-400 text-sm">
-              Wiem, co lubi Instagram, TikTok i YouTube. Każdy montaż jest zoptymalizowany pod maksymalne zasięgi.
-            </p>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl mb-4">
-              🔥
-            </div>
-            <h3 class="font-display text-xl font-bold mb-2">Zawsze na czasie</h3>
-            <p class="text-gray-400 text-sm">
-              Śledzę trendy 24/7. Twoje rolki będą aktualne i w temacie – żadnych przestarzałych formatów.
-            </p>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-2xl mb-4">
-              📖
-            </div>
-            <h3 class="font-display text-xl font-bold mb-2">Storytelling</h3>
-            <p class="text-gray-400 text-sm">
-              Nie montuję – opowiadam historie. Każda rolka ma początek, środek i końcówkę, która zostaje w głowie.
-            </p>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-red-500 flex items-center justify-center text-2xl mb-4">
-              🤝
-            </div>
-            <h3 class="font-display text-xl font-bold mb-2">Prosta komunikacja</h3>
-            <p class="text-gray-400 text-sm">
-              Żadnego korpo-bełkotu. Piszesz, odpisuję. Masz uwagi – wprowadzam. Bez komplikacji.
-            </p>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center text-2xl mb-4">
-              🎯
-            </div>
-            <h3 class="font-display text-xl font-bold mb-2">Retencja na maksa</h3>
-            <p class="text-gray-400 text-sm">
-              Tworzę rolki, które trzymają widza do ostatniej sekundy. Hook, tempo, napięcie – wszystko działa.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 sm:py-32 relative">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-pink-900/10 to-transparent"></div>
-      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 sm:mb-16">
-          <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-            💬 Opinie
-          </span>
-          <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Co mówią klienci?
-          </h2>
-        </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="flex items-center gap-1 text-yellow-400 mb-4">
-              ⭐⭐⭐⭐⭐
-            </div>
-            <p class="text-gray-300 mb-6 italic">
-              "Moje rolki zaczęły regularnie przekraczać 100k wyświetleń. Współpraca – czysta przyjemność!"
-            </p>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                👩
-              </div>
-              <div>
-                <div class="font-medium text-sm">Anna K.</div>
-                <div class="text-xs text-gray-400">Fitness Coach</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="flex items-center gap-1 text-yellow-400 mb-4">
-              ⭐⭐⭐⭐⭐
-            </div>
-            <p class="text-gray-300 mb-6 italic">
-              "Szybko, profesjonalnie, bez zbędnych pytań. Dokładnie tak, jak lubię. Polecam każdemu twórcy!"
-            </p>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-                👨
-              </div>
-              <div>
-                <div class="font-medium text-sm">Michał T.</div>
-                <div class="text-xs text-gray-400">Business Coach</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-hover glass-card rounded-2xl p-6">
-            <div class="flex items-center gap-1 text-yellow-400 mb-4">
-              ⭐⭐⭐⭐⭐
-            </div>
-            <p class="text-gray-300 mb-6 italic">
-              "W końcu mogę skupić się na nagrywaniu, a montaż mam z głowy. Moje zasięgi skoczyły o 300%!"
-            </p>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center">
-                👩
-              </div>
-              <div>
-                <div class="font-medium text-sm">Karolina M.</div>
-                <div class="text-xs text-gray-400">Beauty Creator</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="py-20 sm:py-32">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="glass-card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          
-          <div class="relative">
-            <div class="text-center mb-10">
-              <span class="inline-block px-4 py-2 rounded-full glass-card text-sm text-purple-300 mb-6">
-                📬 Kontakt
-              </span>
-              <h2 id="contact-title" class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-                Gotowy na viralowe rolki?
-              </h2>
-              <p class="text-gray-400">
-                Napisz – odezwę się w ciągu 24h z konkretnymi propozycjami.
-              </p>
-            </div>
-            
-            <form id="contact-form" class="space-y-6 max-w-xl mx-auto">
-              <div class="grid sm:grid-cols-2 gap-4">
+    <section id="work" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
                 <div>
-                  <label for="name" class="block text-sm font-medium mb-2">Imię</label>
-                  <input type="text" id="name" name="name" required 
-                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-purple-500/30 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-colors"
-                    placeholder="Twoje imię">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-2">Wybrane Projekty</h2>
+                    <p class="text-gray-400">Realizacje, które wykręciły wyniki.</p>
+                </div>
+                <div class="hidden md:block text-neon text-4xl">↘</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[300px] md:auto-rows-[400px]">
+                
+                <div class="bento-card md:col-span-2 row-span-2 group relative">
+                    <iframe 
+                        class="absolute inset-0 w-full h-full object-cover"
+                        src="https://www.youtube.com/embed/55KkqrIlT7w?autoplay=1&mute=1&loop=1&playlist=55KkqrIlT7w&controls=0&showinfo=0&rel=0" 
+                        title="Main Project" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
+                        <div class="inline-block px-3 py-1 bg-neon text-black text-xs font-bold rounded mb-2">HOT 🔥</div>
+                        <h3 class="text-2xl font-bold">Showreel 2024</h3>
+                        <p class="text-gray-300 text-sm">Montaż pod dynamikę i muzykę</p>
+                    </div>
+                </div>
+
+                <div class="bento-card group relative">
+                    <img src="https://placehold.co/400x600/1a1a1a/FFF?text=Fitness" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100">
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="font-bold text-lg">Branża Fitness</h3>
+                        <p class="text-neon text-xs">2.1M Views</p>
+                    </div>
+                </div>
+
+                <div class="bento-card bg-zinc-900 flex flex-col justify-center items-center text-center p-6 border-neon/20">
+                    <div class="text-5xl font-black text-neon mb-2">50M+</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-wider">Wyświetleń<br>łącznie</div>
+                </div>
+
+                <div class="bento-card group relative">
+                    <img src="https://placehold.co/400x600/1a1a1a/FFF?text=Fashion" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100">
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="font-bold text-lg">Fashion & Style</h3>
+                        <p class="text-neon text-xs">850K Views</p>
+                    </div>
+                </div>
+
+                <div class="bento-card p-8 flex flex-col justify-between bg-gradient-to-br from-zinc-900 to-black">
+                    <div class="text-3xl">🚀</div>
+                    <div>
+                        <h3 class="font-bold text-xl mb-2">Skupienie na retencji</h3>
+                        <p class="text-gray-400 text-sm">Moje montaże są projektowane tak, by utrzymać widza do ostatniej sekundy.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 px-6 bg-zinc-900/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Prosta Oferta</h2>
+                <p class="text-gray-400">Bez ukrytych kosztów. Wybierasz pakiet i działamy.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="border border-white/10 rounded-2xl p-8 hover:border-white/30 transition-colors">
+                    <div class="text-xl font-bold mb-2">Starter</div>
+                    <div class="text-4xl font-bold text-neon mb-6">10 <span class="text-lg text-white font-normal">rolek</span></div>
+                    <ul class="space-y-4 text-gray-400 text-sm mb-8">
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Dynamiczne cięcia</li>
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Podstawowe napisy</li>
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Dobór muzyki</li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all font-bold">Wybieram</a>
+                </div>
+
+                <div class="border border-neon bg-neon/5 rounded-2xl p-8 relative">
+                    <div class="absolute top-0 right-0 bg-neon text-black text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">POPULARNY</div>
+                    <div class="text-xl font-bold mb-2">Creator PRO</div>
+                    <div class="text-4xl font-bold text-neon mb-6">20 <span class="text-lg text-white font-normal">rolek</span></div>
+                    <ul class="space-y-4 text-gray-300 text-sm mb-8">
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Wszystko ze Startera</li>
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Animowane napisy (Karaoke)</li>
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Efekty wizualne & Sound Design</li>
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Hooki pod wirale</li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center py-3 rounded-xl bg-neon text-black hover:opacity-90 transition-all font-bold">Wybieram</a>
+                </div>
+
+                <div class="border border-white/10 rounded-2xl p-8 hover:border-white/30 transition-colors">
+                    <div class="text-xl font-bold mb-2">Brand</div>
+                    <div class="text-4xl font-bold text-neon mb-6">30+ <span class="text-lg text-white font-normal">rolek</span></div>
+                    <ul class="space-y-4 text-gray-400 text-sm mb-8">
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Pełna obsługa kanału</li>
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Strategia contentowa</li>
+                        <li class="flex gap-3"><span class="text-neon">✓</span> Priorytetowa realizacja (24h)</li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all font-bold">Napisz DM</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-5xl md:text-7xl font-black mb-8 uppercase">Zróbmy razem<br><span class="text-neon">Viral</span></h2>
+            <p class="text-xl text-gray-400 mb-12">Masz surowy materiał? Ja zrobię z niego złoto. Napisz do mnie, wycenimy Twój projekt w 15 minut.</p>
+            
+            <form action="https://formspree.io/f/twoj-kod" method="POST" class="max-w-xl mx-auto space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Twój Email</label>
+                    <input type="email" name="email" class="w-full bg-[#111] border border-[#333] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="hello@twojafirma.pl">
                 </div>
                 <div>
-                  <label for="email" class="block text-sm font-medium mb-2">Email</label>
-                  <input type="email" id="email" name="email" required 
-                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-purple-500/30 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-colors"
-                    placeholder="twoj@email.com">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">O czym są Twoje filmy?</label>
+                    <textarea name="message" rows="4" class="w-full bg-[#111] border border-[#333] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="Opisz krótko co nagrywasz..."></textarea>
                 </div>
-              </div>
-              
-              <div>
-                <label for="platform" class="block text-sm font-medium mb-2">Główna platforma</label>
-                <select id="platform" name="platform" 
-                  class="w-full px-4 py-3 rounded-xl bg-white/5 border border-purple-500/30 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-colors">
-                  <option value="" class="bg-gray-900">Wybierz platformę</option>
-                  <option value="instagram" class="bg-gray-900">Instagram Reels</option>
-                  <option value="tiktok" class="bg-gray-900">TikTok</option>
-                  <option value="youtube" class="bg-gray-900">YouTube Shorts</option>
-                  <option value="all" class="bg-gray-900">Wszystkie platformy</option>
-                </select>
-              </div>
-              
-              <div>
-                <label for="message" class="block text-sm font-medium mb-2">Wiadomość</label>
-                <textarea id="message" name="message" rows="4" required 
-                  class="w-full px-4 py-3 rounded-xl bg-white/5 border border-purple-500/30 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-colors resize-none"
-                  placeholder="Opowiedz o swoim projekcie..."></textarea>
-              </div>
-              
-              <button type="submit" class="btn-primary w-full py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2">
-                <span>Wyślij wiadomość</span>
-                <span>🚀</span>
-              </button>
-              
-              <div id="form-message" class="hidden text-center py-4 rounded-xl"></div>
+                <button type="submit" class="w-full bg-white text-black font-bold text-xl py-4 rounded-xl hover:bg-neon transition-colors">
+                    Wyślij Wiadomość 🚀
+                </button>
             </form>
-            
-            <div class="mt-10 pt-10 border-t border-purple-500/20">
-              <p class="text-center text-gray-400 mb-6">Lub znajdź mnie tutaj:</p>
-              <div class="flex justify-center gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" 
-                  class="card-hover w-14 h-14 glass-card rounded-xl flex items-center justify-center text-2xl">
-                  📸
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" 
-                  class="card-hover w-14 h-14 glass-card rounded-xl flex items-center justify-center text-2xl">
-                  🎵
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" 
-                  class="card-hover w-14 h-14 glass-card rounded-xl flex items-center justify-center text-2xl">
-                  ▶️
-                </a>
-                <a href="mailto:kontakt@example.com" 
-                  class="card-hover w-14 h-14 glass-card rounded-xl flex items-center justify-center text-2xl">
-                  ✉️
-                </a>
-              </div>
+
+            <div class="mt-16 flex justify-center gap-8 text-2xl">
+                <a href="#" class="hover:text-neon transition-colors">📸</a>
+                <a href="#" class="hover:text-neon transition-colors">🎵</a>
+                <a href="#" class="hover:text-neon transition-colors">▶️</a>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <footer class="py-8 border-t border-purple-500/20">
-      <div class="max-w-6xl mx-auto px-4 text-center">
-        <div class="flex items-center justify-center gap-2 mb-4">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-            <span class="text-sm">🎬</span>
-          </div>
-          <span class="font-display font-bold">REELCRAFT</span>
-        </div>
-        <p class="text-gray-500 text-sm">
-          © 2024 ReelCraft. Tworzę viralowy content, który działa.
-        </p>
-      </div>
+    <footer class="py-8 text-center text-gray-600 text-sm border-t border-white/5">
+        &copy; 2024 ReelCraft Portfolio. All rights reserved.
     </footer>
-    
-  </div>
 
-  <script>
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      mobileMenuBtn.textContent = mobileMenu.classList.contains('hidden') ? '☰' : '✕';
-    });
-
-    // Close mobile menu on link click
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        mobileMenuBtn.textContent = '☰';
-      });
-    });
-
-    // Form submission (Demo Mode)
-    const contactForm = document.getElementById('contact-form');
-    const formMessage = document.getElementById('form-message');
-    
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // Show success message
-      formMessage.classList.remove('hidden', 'bg-red-500/20', 'text-red-300');
-      formMessage.classList.add('bg-green-500/20', 'text-green-300');
-      formMessage.innerHTML = '✓ Wiadomość wysłana! (Tryb demo)';
-      
-      // Reset form
-      contactForm.reset();
-      
-      // Hide message after 5 seconds
-      setTimeout(() => {
-        formMessage.classList.add('hidden');
-      }, 5000);
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-slide-up');
-          entry.target.style.opacity = '1';
-        }
-      });
-    }, observerOptions);
-
-    // Observe sections for scroll animations
-    document.querySelectorAll('section > div').forEach(section => {
-      observer.observe(section);
-    });
-
-    // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  </script>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
