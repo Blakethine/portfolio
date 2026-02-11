@@ -7,11 +7,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    /* Kluczowa zmiana: overflow-x: hidden zapobiega uciekaniu treści na boki */
     body { box-sizing: border-box; background-color: #0a0a0f; overflow-x: hidden; }
     * { font-family: 'Space Grotesk', sans-serif; }
     .font-display { font-family: 'Syne', sans-serif; }
     
+    /* FIX: Wymuszenie akceleracji sprzętowej dla nawigacji (zapobiega miganiu) */
+    nav {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
     /* Animacja nieskończonego przewijania (Marquee) */
     @keyframes marquee {
       0% { transform: translateX(0); }
@@ -21,10 +27,9 @@
     .animate-marquee {
       animation: marquee 40s linear infinite;
       width: max-content;
-      will-change: transform; /* Optymalizacja wydajności */
+      will-change: transform;
     }
     
-    /* Zatrzymanie animacji po najechaniu myszką */
     .group:hover .animate-marquee {
       animation-play-state: paused;
     }
@@ -46,12 +51,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
     
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .animate-float { animation: float 6s ease-in-out infinite; }
     .animate-gradient { background-size: 200% 200%; animation: gradient-shift 4s ease infinite; }
     .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
     
@@ -77,11 +76,10 @@
     }
     .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(168, 85, 247, 0.5); }
     
-    /* Szkło zostawiamy tylko dla kart, nie dla nawigacji */
     .glass-card {
       background: rgba(30, 30, 40, 0.6);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px); /* Wsparcie dla Safari */
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(168, 85, 247, 0.2);
     }
     
@@ -96,7 +94,7 @@
 <body class="h-full bg-[#0a0a0f] text-white overflow-x-hidden">
   <div id="app" class="w-full h-full">
     
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f] border-b border-purple-500/10 transition-colors duration-300" id="main-nav">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-md border-b border-purple-500/10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center gap-2">
@@ -909,19 +907,6 @@
           });
         }
       });
-    });
-
-    // Navbar background on scroll
-    const navbar = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('bg-opacity-100', 'border-opacity-100');
-        navbar.classList.remove('bg-opacity-0', 'border-opacity-0');
-      } else {
-        navbar.classList.remove('bg-opacity-100', 'border-opacity-100');
-        // Tutaj można dodać lekką przezroczystość na górze, jeśli chcesz:
-        // navbar.classList.add('bg-opacity-80'); 
-      }
     });
   </script>
 </body>
