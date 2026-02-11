@@ -16,13 +16,11 @@
         
         h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; }
 
-        /* Akcent kolorystyczny - NEON LIME */
         .text-neon { color: #ccff00; }
         .bg-neon { background-color: #ccff00; }
         .border-neon { border-color: #ccff00; }
-        .group:hover .group-hover\:text-neon { color: #ccff00; }
-        
-        /* Karty */
+
+        /* Karty cech */
         .feature-card {
             background-color: #111;
             border: 1px solid #222;
@@ -33,7 +31,7 @@
             transform: translateY(-5px);
         }
 
-        /* Portfolio Grid */
+        /* Portfolio Grid - Mniejsze karty */
         .reel-card {
             aspect-ratio: 9/16;
             background-color: #111;
@@ -49,7 +47,7 @@
             z-index: 10;
         }
 
-        /* --- ANIMACJE PIONOWYCH TAŚM (MARQUEE) --- */
+        /* Animacje pionowych taśm */
         @keyframes scroll-vertical {
             0% { transform: translateY(0); }
             100% { transform: translateY(-50%); }
@@ -67,21 +65,15 @@
             will-change: transform;
         }
 
-        .scroll-up {
-            animation: scroll-vertical 40s linear infinite;
-        }
+        .scroll-up { animation: scroll-vertical 40s linear infinite; }
+        .scroll-down { animation: scroll-vertical-reverse 40s linear infinite; }
 
-        .scroll-down {
-            animation: scroll-vertical-reverse 40s linear infinite;
-        }
-
-        /* Maska zanikania (Fade góra/dół) */
+        /* Maska zanikania na końcach taśm */
         .fade-mask-y {
-            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
         }
 
-        /* Ukrycie paska przewijania w nawigacji */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -110,15 +102,15 @@
     <section class="h-screen flex items-center justify-center relative overflow-hidden">
         
         <div class="absolute left-4 lg:left-12 top-0 h-full w-32 md:w-48 lg:w-56 fade-mask-y overflow-hidden hidden md:flex flex-col opacity-40 hover:opacity-100 transition-opacity duration-500">
-            <div class="marquee-col scroll-up">
-                <img src="https://placehold.co/300x533/1a1a1a/444?text=Reel+1" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/222/555?text=Reel+2" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/1a1a1a/444?text=Reel+3" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/222/555?text=Reel+4" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/1a1a1a/444?text=Reel+1" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/222/555?text=Reel+2" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/1a1a1a/444?text=Reel+3" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/222/555?text=Reel+4" class="w-full rounded-xl border border-white/10">
+            <div class="marquee-col scroll-up shrink-0">
+                <img src="https://placehold.co/300x533/1a1a1a/444?text=Screen+1" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/222/555?text=Screen+2" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/1a1a1a/444?text=Screen+3" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/222/555?text=Screen+4" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/1a1a1a/444?text=Screen+1" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/222/555?text=Screen+2" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/1a1a1a/444?text=Screen+3" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/222/555?text=Screen+4" class="w-full rounded-xl border border-white/10 shrink-0">
             </div>
         </div>
 
@@ -126,10 +118,10 @@
             <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-black/50 backdrop-blur-md text-xs text-neon font-medium mb-8 tracking-wider uppercase" data-i18n="hero_badge">
                 ✨ Montaż short-form content
             </div>
-            <h1 class="text-4xl md:text-7xl font-black leading-tight mb-8 font-display drop-shadow-2xl tracking-wider">
-                <span data-i18n="hero_title_1">ZAMIENIAM SUROWY</span> <span class="text-neon" data-i18n="hero_title_2">MATERIAŁ W VIRAL</span>
+            <h1 class="text-4xl md:text-7xl font-black leading-tight mb-8 font-display drop-shadow-2xl tracking-wider" data-i18n="hero_full_title">
+                ZAMIENIAM SUROWY <span class="text-neon">MATERIAŁ W VIRAL</span>
             </h1>
-            <p class="text-gray-300 text-lg md:text-xl max-w-lg mx-auto mb-10 font-light drop-shadow-md" data-i18n="hero_desc">
+            <p class="text-gray-300 text-lg md:text-xl max-w-lg mx-auto mb-10 font-light" data-i18n="hero_desc">
                 Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. 
                 Instagram, TikTok, YouTube Shorts – wiem, co działa.
             </p>
@@ -144,18 +136,17 @@
         </div>
 
         <div class="absolute right-4 lg:right-12 top-0 h-full w-32 md:w-48 lg:w-56 fade-mask-y overflow-hidden hidden md:flex flex-col opacity-40 hover:opacity-100 transition-opacity duration-500">
-            <div class="marquee-col scroll-down">
-                <img src="https://placehold.co/300x533/333/666?text=Reel+5" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/444/777?text=Reel+6" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/333/666?text=Reel+7" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/444/777?text=Reel+8" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/333/666?text=Reel+5" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/444/777?text=Reel+6" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/333/666?text=Reel+7" class="w-full rounded-xl border border-white/10">
-                <img src="https://placehold.co/300x533/444/777?text=Reel+8" class="w-full rounded-xl border border-white/10">
+            <div class="marquee-col scroll-down shrink-0">
+                <img src="https://placehold.co/300x533/333/666?text=Screen+5" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/444/777?text=Screen+6" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/333/666?text=Screen+7" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/444/777?text=Screen+8" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/333/666?text=Screen+5" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/444/777?text=Screen+6" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/333/666?text=Screen+7" class="w-full rounded-xl border border-white/10 shrink-0">
+                <img src="https://placehold.co/300x533/444/777?text=Screen+8" class="w-full rounded-xl border border-white/10 shrink-0">
             </div>
         </div>
-
     </section>
 
     <section id="about" class="py-24 px-6 bg-[#0a0a0a]">
@@ -164,410 +155,78 @@
                 <div class="aspect-square bg-[#111] rounded-3xl border border-white/10 flex items-center justify-center relative overflow-hidden group">
                     <div class="absolute inset-0 bg-neon/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <div class="text-8xl">🎥</div>
-                    <div class="absolute top-10 right-10 bg-[#222] p-4 rounded-2xl border border-white/5 rotate-6">
-                        <span class="text-2xl">🎬</span>
-                    </div>
-                    <div class="absolute bottom-10 left-10 bg-[#222] p-4 rounded-2xl border border-white/5 -rotate-6">
-                        <span class="text-2xl">📈</span>
-                    </div>
+                    <div class="absolute top-10 right-10 bg-[#222] p-4 rounded-2xl border border-white/5 rotate-6"><span class="text-2xl">🎬</span></div>
+                    <div class="absolute bottom-10 left-10 bg-[#222] p-4 rounded-2xl border border-white/5 -rotate-6"><span class="text-2xl">📈</span></div>
                 </div>
             </div>
-            
             <div>
                 <h2 class="text-4xl font-bold mb-6 font-display" data-i18n="about_title">Kim jestem?</h2>
                 <div class="space-y-6 text-gray-400 text-lg">
-                    <p data-i18n="about_p1">
-                        Jestem <span class="text-white font-medium">montażystą short-form contentu</span>, 
-                        który żyje trendami i algorytmami. Przez ostatnie 3 lata pomogłem dziesiątkom 
-                        twórców i marek <span class="text-neon">zwiększyć zasięgi i zaangażowanie</span>.
-                    </p>
-                    <p data-i18n="about_p2">
-                        Wiem, że masz milion rzeczy na głowie – nagrywanie, prowadzenie biznesu, 
-                        odpowiadanie na wiadomości. <span class="text-white font-medium">Montaż? To moja działka.</span>
-                    </p>
-                    <p data-i18n="about_p3">
-                        Tworzę rolki, które <span class="text-white">zatrzymują scroll</span>, 
-                        budują <span class="text-neon">retencję</span> i sprawiają, że algorytm 
-                        Cię kocha. Hook, dynamika, napisy, muzyka – wszystko dopracowane pod viralowy potencjał.
-                    </p>
+                    <p data-i18n="about_p1">Jestem montażystą short-form contentu, który żyje trendami i algorytmami...</p>
+                    <p data-i18n="about_p2">Wiem, że masz milion rzeczy na głowie. Montaż? To moja działka.</p>
+                    <p data-i18n="about_p3">Tworzę rolki, które budują retencję i sprawiają, że algorytm Cię kocha.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="why-me" class="py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 font-display" data-i18n="why_title">Co mnie wyróżnia?</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="feature-card p-8 rounded-2xl group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">⚡</div>
-                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors" data-i18n="feat_1_title">Błyskawiczna realizacja</h3>
-                    <p class="text-gray-400" data-i18n="feat_1_desc">48 godzin i Twoja rolka jest gotowa. Czas to pieniądz – szanuję Twój.</p>
-                </div>
-                <div class="feature-card p-8 rounded-2xl group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📈</div>
-                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors" data-i18n="feat_2_title">Znajomość algorytmów</h3>
-                    <p class="text-gray-400" data-i18n="feat_2_desc">Wiem, co lubi Instagram, TikTok i YouTube. Optymalizacja pod maksymalne zasięgi.</p>
-                </div>
-                <div class="feature-card p-8 rounded-2xl group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🔥</div>
-                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors" data-i18n="feat_3_title">Zawsze na czasie</h3>
-                    <p class="text-gray-400" data-i18n="feat_3_desc">Śledzę trendy 24/7. Żadnych przestarzałych formatów, tylko świeży content.</p>
-                </div>
-                <div class="feature-card p-8 rounded-2xl group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📖</div>
-                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors" data-i18n="feat_4_title">Storytelling</h3>
-                    <p class="text-gray-400" data-i18n="feat_4_desc">Nie montuję – opowiadam historie. Każda rolka ma początek, środek i końcówkę.</p>
-                </div>
-                <div class="feature-card p-8 rounded-2xl group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🤝</div>
-                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors" data-i18n="feat_5_title">Prosta komunikacja</h3>
-                    <p class="text-gray-400" data-i18n="feat_5_desc">Żadnego korpo-bełkotu. Piszesz, odpisuję. Masz uwagi – wprowadzam.</p>
-                </div>
-                <div class="feature-card p-8 rounded-2xl group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎯</div>
-                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors" data-i18n="feat_6_title">Retencja na maksa</h3>
-                    <p class="text-gray-400" data-i18n="feat_6_desc">Tworzę rolki, które trzymają widza do ostatniej sekundy. Hook, tempo, napięcie.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="portfolio" class="py-24 px-6 bg-[#0a0a0a]">
+    <section id="portfolio" class="py-24 px-6 bg-[#050505]">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 font-display text-center" data-i18n="portfolio_title">Portfolio & Showreel</h2>
-
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="reel-card group">
-                    <iframe class="absolute inset-0 w-full h-full object-cover" src="https://www.youtube.com/embed/55KkqrIlT7w?autoplay=1&mute=1&loop=1&playlist=55KkqrIlT7w&controls=0&showinfo=0&rel=0" title="Project 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <div class="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 text-[10px] rounded-full pointer-events-none text-white opacity-0 group-hover:opacity-100 transition-opacity">Autoplay</div>
+                    <iframe class="absolute inset-0 w-full h-full object-cover" src="https://www.youtube.com/embed/55KkqrIlT7w?autoplay=1&mute=1&loop=1&playlist=55KkqrIlT7w&controls=0&showinfo=0&rel=0" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-3xl mb-3">👩‍🍳</span><span class="text-sm font-bold" data-i18n="port_food">Food Content</span>
-                </div>
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-3xl mb-3">📚</span><span class="text-sm font-bold" data-i18n="port_edu">Edukacja</span>
-                </div>
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-3xl mb-3">🛍️</span><span class="text-sm font-bold">E-commerce</span>
-                </div>
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-3xl mb-3">🎸</span><span class="text-sm font-bold" data-i18n="port_music">Muzyka</span>
-                </div>
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-3xl mb-3">🏋️</span><span class="text-sm font-bold">Fitness</span>
-                </div>
+                <div class="reel-card flex items-center justify-center text-gray-700 font-bold">REEL 2</div>
+                <div class="reel-card flex items-center justify-center text-gray-700 font-bold">REEL 3</div>
+                <div class="reel-card flex items-center justify-center text-gray-700 font-bold">REEL 4</div>
+                <div class="reel-card flex items-center justify-center text-gray-700 font-bold">REEL 5</div>
+                <div class="reel-card flex items-center justify-center text-gray-700 font-bold">REEL 6</div>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4 font-display" data-i18n="price_title">Pakiety montażu</h2>
-                <p class="text-gray-400" data-i18n="price_subtitle">Wybierz pakiet dopasowany do Twoich potrzeb.</p>
-            </div>
+    <section id="pricing" class="py-24 px-6 bg-[#0a0a0a] text-center">
+        <h2 class="text-4xl font-bold mb-8 font-display" data-i18n="price_title">Pakiety montażu</h2>
+        <p class="text-gray-400 mb-12" data-i18n="price_subtitle">Wybierz pakiet dopasowany do Twoich potrzeb.</p>
+        </section>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-colors bg-[#111]">
-                    <div class="text-3xl mb-4">🌱</div>
-                    <div class="text-xl font-bold mb-2">Starter</div>
-                    <p class="text-gray-400 text-sm mb-6" data-i18n="plan_1_desc">Idealny na start przygody z rolkami</p>
-                    <div class="text-4xl font-bold text-neon mb-6 font-display">10 <span class="text-lg text-white font-normal" data-i18n="per_month">rolek/msc</span></div>
-                    <ul class="space-y-4 text-gray-400 text-sm mb-8">
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_cut">Profesjonalne cięcia</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_subs">Napisy + animacje</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_music">Dobór muzyki</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_rev_1">1 poprawka na rolkę</span></li>
-                    </ul>
-                    <a href="#contact" class="block w-full text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all font-bold" data-i18n="btn_choose">Wybieram</a>
-                </div>
-
-                <div class="border border-neon bg-neon/5 rounded-3xl p-8 relative transform md:scale-105 shadow-2xl shadow-neon/10">
-                    <div class="absolute top-0 right-0 bg-neon text-black text-xs font-bold px-4 py-1.5 rounded-bl-xl rounded-tr-2xl" data-i18n="badge_pop">NAJPOPULARNIEJSZY</div>
-                    <div class="text-3xl mb-4">🚀</div>
-                    <div class="text-xl font-bold mb-2">Pro</div>
-                    <p class="text-gray-300 text-sm mb-6" data-i18n="plan_2_desc">Dla twórców budujących markę</p>
-                    <div class="text-4xl font-bold text-neon mb-6 font-display">20 <span class="text-lg text-white font-normal" data-i18n="per_month">rolek/msc</span></div>
-                    <ul class="space-y-4 text-gray-300 text-sm mb-8">
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_all_start">Wszystko ze Startera</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_adv">Zaawansowane efekty</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_hooks">Hooki pod virale</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_rev_2">2 poprawki na rolkę</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_prio">Priorytetowa realizacja</span></li>
-                    </ul>
-                    <a href="#contact" class="block w-full text-center py-3 rounded-xl bg-neon text-black hover:opacity-90 transition-all font-bold" data-i18n="btn_choose">Wybieram</a>
-                </div>
-
-                <div class="border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-colors bg-[#111]">
-                    <div class="text-3xl mb-4">👑</div>
-                    <div class="text-xl font-bold mb-2">Enterprise</div>
-                    <p class="text-gray-400 text-sm mb-6" data-i18n="plan_3_desc">Pełna obsługa Twojego contentu</p>
-                    <div class="text-4xl font-bold text-neon mb-6 font-display">30+ <span class="text-lg text-white font-normal" data-i18n="per_month">rolek/msc</span></div>
-                    <ul class="space-y-4 text-gray-400 text-sm mb-8">
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_all_pro">Wszystko z Pro</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_strat">Strategia contentowa</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_supp">Dedykowany support</span></li>
-                        <li class="flex gap-3"><span class="text-neon">✓</span> <span data-i18n="feat_rev_inf">Nieograniczone poprawki</span></li>
-                    </ul>
-                    <a href="#contact" class="block w-full text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all font-bold" data-i18n="btn_contact_dm">Napisz DM</a>
-                </div>
-            </div>
-        </div>
+    <section id="contact" class="py-24 px-6 text-center">
+        <h2 class="text-5xl font-black mb-8 font-display uppercase"><span data-i18n="contact_head_1">Gotowy na</span> <span class="text-neon" data-i18n="contact_head_2">Viral?</span></h2>
+        <a href="mailto:kontakt@example.com" class="bg-white text-black px-12 py-5 rounded-full font-bold text-xl hover:bg-neon transition-all">Napisz do mnie 🚀</a>
     </section>
-
-    <section class="py-24 px-6 bg-[#0a0a0a]">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center font-display" data-i18n="testi_title">Co mówią klienci?</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-[#111] p-8 rounded-2xl border border-white/5">
-                    <div class="flex text-neon mb-4">⭐⭐⭐⭐⭐</div>
-                    <p class="text-gray-400 italic mb-6" data-i18n="testi_1">"Moje rolki zaczęły regularnie przekraczać 100k wyświetleń. Współpraca – czysta przyjemność!"</p>
-                    <div class="font-bold">Anna K. <span class="text-gray-500 font-normal text-sm block">Fitness Coach</span></div>
-                </div>
-                <div class="bg-[#111] p-8 rounded-2xl border border-white/5">
-                    <div class="flex text-neon mb-4">⭐⭐⭐⭐⭐</div>
-                    <p class="text-gray-400 italic mb-6" data-i18n="testi_2">"Szybko, profesjonalnie, bez zbędnych pytań. Dokładnie tak, jak lubię. Polecam każdemu twórcy!"</p>
-                    <div class="font-bold">Michał T. <span class="text-gray-500 font-normal text-sm block">Business Coach</span></div>
-                </div>
-                <div class="bg-[#111] p-8 rounded-2xl border border-white/5">
-                    <div class="flex text-neon mb-4">⭐⭐⭐⭐⭐</div>
-                    <p class="text-gray-400 italic mb-6" data-i18n="testi_3">"W końcu mogę skupić się na nagrywaniu, a montaż mam z głowy. Moje zasięgi skoczyły o 300%!"</p>
-                    <div class="font-bold">Karolina M. <span class="text-gray-500 font-normal text-sm block">Beauty Creator</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-24 px-6">
-        <div class="max-w-2xl mx-auto text-center">
-            <div class="inline-block px-4 py-1.5 rounded-full bg-white/5 text-xs text-gray-400 mb-6 uppercase" data-i18n="contact_label">Kontakt</div>
-            <h2 class="text-4xl md:text-6xl font-black mb-6 font-display uppercase">
-                <span data-i18n="contact_head_1">Gotowy na</span> <span class="text-neon" data-i18n="contact_head_2">Viral?</span>
-            </h2>
-            <p class="text-xl text-gray-400 mb-12" data-i18n="contact_sub">Napisz – odezwę się w ciągu 24h z konkretnymi propozycjami.</p>
-            
-            <form id="contact-form" class="space-y-4 text-left">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2" data-i18n="form_name">Imię</label>
-                        <input type="text" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="Twoje imię">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email</label>
-                        <input type="email" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="email@przyklad.pl">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2" data-i18n="form_platform">Platforma</label>
-                    <select class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors appearance-none">
-                        <option data-i18n="form_select">Wybierz platformę...</option>
-                        <option>Instagram Reels</option>
-                        <option>TikTok</option>
-                        <option>YouTube Shorts</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2" data-i18n="form_msg">Wiadomość</label>
-                    <textarea rows="4" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="..."></textarea>
-                </div>
-                <button type="submit" class="w-full bg-white text-black font-bold text-xl py-4 rounded-xl hover:bg-neon transition-colors" data-i18n="form_btn">
-                    Wyślij Wiadomość 🚀
-                </button>
-                <div id="form-message" class="hidden text-center text-neon text-sm mt-4">Wiadomość wysłana! (Demo)</div>
-            </form>
-
-            <div class="mt-16 flex justify-center gap-8 text-2xl text-gray-500">
-                <a href="#" class="hover:text-neon transition-colors">📸</a>
-                <a href="#" class="hover:text-neon transition-colors">🎵</a>
-                <a href="#" class="hover:text-neon transition-colors">▶️</a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-8 text-center text-gray-600 text-sm border-t border-white/5">
-        &copy; 2024 ReelCraft Portfolio. All rights reserved.
-    </footer>
 
     <script>
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Form Logic
-        const contactForm = document.getElementById('contact-form');
-        const formMessage = document.getElementById('form-message');
-        
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            formMessage.classList.remove('hidden');
-            contactForm.reset();
-            setTimeout(() => { formMessage.classList.add('hidden'); }, 3000);
-        });
-
-        // --- LANGUAGE SWITCHER LOGIC ---
         const translations = {
             pl: {
-                nav_about: "O mnie",
-                nav_why: "Dlaczego ja?",
-                nav_portfolio: "Portfolio",
-                nav_pricing: "Oferta",
-                nav_contact: "Współpraca",
+                nav_about: "O mnie", nav_why: "Dlaczego ja?", nav_portfolio: "Portfolio", nav_pricing: "Oferta", nav_contact: "Współpraca",
                 hero_badge: "✨ Montaż short-form content",
-                hero_title_1: "ZAMIENIAM SUROWY",
-                hero_title_2: "MATERIAŁ W VIRAL",
+                hero_full_title: 'ZAMIENIAM SUROWY <span class="text-neon">MATERIAŁ W VIRAL</span>',
                 hero_desc: "Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. Instagram, TikTok, YouTube Shorts – wiem, co działa.",
-                btn_portfolio: "Zobacz realizacje",
-                btn_contact: "Napisz do mnie 💬",
-                about_title: "Kim jestem?",
-                about_p1: 'Jestem <span class="text-white font-medium">montażystą short-form contentu</span>, który żyje trendami i algorytmami. Przez ostatnie 3 lata pomogłem dziesiątkom twórców i marek <span class="text-neon">zwiększyć zasięgi i zaangażowanie</span>.',
-                about_p2: 'Wiem, że masz milion rzeczy na głowie – nagrywanie, prowadzenie biznesu, odpowiadanie na wiadomości. <span class="text-white font-medium">Montaż? To moja działka.</span>',
-                about_p3: 'Tworzę rolki, które <span class="text-white">zatrzymują scroll</span>, budują <span class="text-neon">retencję</span> i sprawiają, że algorytm Cię kocha.',
-                why_title: "Co mnie wyróżnia?",
-                feat_1_title: "Błyskawiczna realizacja",
-                feat_1_desc: "48 godzin i Twoja rolka jest gotowa. Czas to pieniądz – szanuję Twój.",
-                feat_2_title: "Znajomość algorytmów",
-                feat_2_desc: "Wiem, co lubi Instagram, TikTok i YouTube. Optymalizacja pod maksymalne zasięgi.",
-                feat_3_title: "Zawsze na czasie",
-                feat_3_desc: "Śledzę trendy 24/7. Żadnych przestarzałych formatów, tylko świeży content.",
-                feat_4_title: "Storytelling",
-                feat_4_desc: "Nie montuję – opowiadam historie. Każda rolka ma początek, środek i końcówkę.",
-                feat_5_title: "Prosta komunikacja",
-                feat_5_desc: "Żadnego korpo-bełkotu. Piszesz, odpisuję. Masz uwagi – wprowadzam.",
-                feat_6_title: "Retencja na maksa",
-                feat_6_desc: "Tworzę rolki, które trzymają widza do ostatniej sekundy. Hook, tempo, napięcie.",
-                portfolio_title: "Portfolio & Showreel",
-                port_food: "Food Content",
-                port_edu: "Edukacja",
-                port_music: "Muzyka",
-                price_title: "Pakiety montażu",
-                price_subtitle: "Wybierz pakiet dopasowany do Twoich potrzeb.",
-                plan_1_desc: "Idealny na start przygody z rolkami",
-                per_month: "rolek/msc",
-                feat_cut: "Profesjonalne cięcia",
-                feat_subs: "Napisy + animacje",
-                feat_music: "Dobór muzyki",
-                feat_rev_1: "1 poprawka na rolkę",
-                btn_choose: "Wybieram",
-                badge_pop: "NAJPOPULARNIEJSZY",
-                plan_2_desc: "Dla twórców budujących markę",
-                feat_all_start: "Wszystko ze Startera",
-                feat_adv: "Zaawansowane efekty",
-                feat_hooks: "Hooki pod virale",
-                feat_rev_2: "2 poprawki na rolkę",
-                feat_prio: "Priorytetowa realizacja",
-                plan_3_desc: "Pełna obsługa Twojego contentu",
-                feat_all_pro: "Wszystko z Pro",
-                feat_strat: "Strategia contentowa",
-                feat_supp: "Dedykowany support",
-                feat_rev_inf: "Nieograniczone poprawki",
-                btn_contact_dm: "Napisz DM",
-                testi_title: "Co mówią klienci?",
-                testi_1: '"Moje rolki zaczęły regularnie przekraczać 100k wyświetleń. Współpraca – czysta przyjemność!"',
-                testi_2: '"Szybko, profesjonalnie, bez zbędnych pytań. Dokładnie tak, jak lubię. Polecam każdemu twórcy!"',
-                testi_3: '"W końcu mogę skupić się na nagrywaniu, a montaż mam z głowy. Moje zasięgi skoczyły o 300%!"',
-                contact_label: "Kontakt",
-                contact_head_1: "Gotowy na",
-                contact_head_2: "Viral?",
-                contact_sub: "Napisz – odezwę się w ciągu 24h z konkretnymi propozycjami.",
-                form_name: "Imię",
-                form_platform: "Platforma",
-                form_select: "Choose platform...",
-                form_msg: "Wiadomość",
-                form_btn: "Wyślij Wiadomość 🚀"
+                btn_portfolio: "Zobacz realizacje", btn_contact: "Napisz do mnie 💬",
+                about_title: "Kim jestem?", about_p3: "Tworzę rolki, które budują retencję i sprawiają, że algorytm Cię kocha.",
+                portfolio_title: "Portfolio & Showreel", price_title: "Pakiety montażu", price_subtitle: "Wybierz pakiet dopasowany do Twoich potrzeb.",
+                contact_head_1: "Gotowy na", contact_head_2: "Viral?"
             },
             en: {
-                nav_about: "About",
-                nav_why: "Why me?",
-                nav_portfolio: "Portfolio",
-                nav_pricing: "Pricing",
-                nav_contact: "Collaboration",
+                nav_about: "About", nav_why: "Why me?", nav_portfolio: "Portfolio", nav_pricing: "Pricing", nav_contact: "Collaboration",
                 hero_badge: "✨ Short-form content editor",
-                hero_title_1: "TURNING RAW",
-                hero_title_2: "CLIPS INTO VIRAL",
+                hero_full_title: 'TURNING RAW <span class="text-neon">CLIPS INTO VIRAL</span>',
                 hero_desc: "I create dynamic content that stops the scroll and builds your reach. Instagram, TikTok, YouTube Shorts – I know what works.",
-                btn_portfolio: "See my work",
-                btn_contact: "Contact me 💬",
-                about_title: "Who am I?",
-                about_p1: 'I am a <span class="text-white font-medium">short-form content editor</span> living by trends and algorithms. Over the last 3 years, I helped dozens of creators and brands <span class="text-neon">boost reach and engagement</span>.',
-                about_p2: 'I know you have a million things to do – filming, running a business, replying to DMs. <span class="text-white font-medium">Editing? That\'s my job.</span>',
-                about_p3: 'I create reels that <span class="text-white">stop the scroll</span>, build <span class="text-neon">retention</span>, and make the algorithm love you.',
-                why_title: "Why me?",
-                feat_1_title: "Fast Turnaround",
-                feat_1_desc: "48 hours and your reel is ready. Time is money – I respect yours.",
-                feat_2_title: "Algorithm Knowledge",
-                feat_2_desc: "I know what Instagram, TikTok, and YouTube like. Optimized for maximum reach.",
-                feat_3_title: "Always Trendy",
-                feat_3_desc: "Tracking trends 24/7. No outdated formats, just fresh content.",
-                feat_4_title: "Storytelling",
-                feat_4_desc: "I don't just edit – I tell stories. Every reel has a beginning, middle, and end.",
-                feat_5_title: "Simple Comm.",
-                feat_5_desc: "No corporate jargon. You write, I reply. You have feedback – I implement it.",
-                feat_6_title: "Max Retention",
-                feat_6_desc: "I create reels that keep viewers until the last second. Hook, pacing, tension.",
-                portfolio_title: "Portfolio & Showreel",
-                port_food: "Food Content",
-                port_edu: "Education",
-                port_music: "Music",
-                price_title: "Editing Packages",
-                price_subtitle: "Choose a package that fits your needs.",
-                plan_1_desc: "Perfect to start your journey",
-                per_month: "reels/mo",
-                feat_cut: "Professional cuts",
-                feat_subs: "Captions + animations",
-                feat_music: "Music selection",
-                feat_rev_1: "1 revision per reel",
-                btn_choose: "Choose",
-                badge_pop: "MOST POPULAR",
-                plan_2_desc: "For creators building a brand",
-                feat_all_start: "Everything in Starter",
-                feat_adv: "Advanced VFX",
-                feat_hooks: "Viral hooks",
-                feat_rev_2: "2 revisions per reel",
-                feat_prio: "Priority delivery",
-                plan_3_desc: "Full channel management",
-                feat_all_pro: "Everything in Pro",
-                feat_strat: "Content Strategy",
-                feat_supp: "Dedicated support",
-                feat_rev_inf: "Unlimited revisions",
-                btn_contact_dm: "DM me",
-                testi_title: "Client Feedback",
-                testi_1: '"My reels started consistently hitting 100k views. Working together is pure pleasure!"',
-                testi_2: '"Fast, professional, no unnecessary questions. Exactly how I like it. Highly recommended!"',
-                testi_3: '"Finally I can focus on filming, and editing is off my mind. My reach jumped by 300%!"',
-                contact_label: "Contact",
-                contact_head_1: "Ready for",
-                contact_head_2: "Viral?",
-                contact_sub: "Write me – I'll get back within 24h with specific proposals.",
-                form_name: "Name",
-                form_platform: "Platform",
-                form_select: "Choose platform...",
-                form_msg: "Message",
-                form_btn: "Send Message 🚀"
+                btn_portfolio: "See my work", btn_contact: "Contact me 💬",
+                about_title: "Who am I?", about_p3: "I create reels that build retention and make the algorithm love you.",
+                portfolio_title: "Portfolio & Showreel", price_title: "Editing Packages", price_subtitle: "Choose a package that fits your needs.",
+                contact_head_1: "Ready for", contact_head_2: "Viral?"
             }
         };
 
         let currentLang = 'pl';
-
         function toggleLanguage() {
             currentLang = currentLang === 'pl' ? 'en' : 'pl';
             document.getElementById('lang-btn').innerText = currentLang === 'pl' ? 'EN' : 'PL';
-            
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[currentLang][key]) {
-                    el.innerHTML = translations[currentLang][key];
-                }
+                if (translations[currentLang][key]) el.innerHTML = translations[currentLang][key];
             });
         }
     </script>
