@@ -37,7 +37,7 @@
         .reel-card {
             aspect-ratio: 9/16;
             background-color: #111;
-            border-radius: 0.75rem; /* Mniejsze zaokrąglenie dla mniejszych kart */
+            border-radius: 0.75rem;
             overflow: hidden;
             border: 1px solid #222;
             position: relative;
@@ -49,18 +49,21 @@
             z-index: 10;
         }
 
-        /* Animacja Taśmy (Marquee) */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        /* NOWA Animacja Pionowej Taśmy */
+        @keyframes scroll-vertical {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
-        .marquee-wrapper {
+        .marquee-vertical {
             display: flex;
-            width: max-content;
-            animation: scroll 40s linear infinite;
+            flex-direction: column;
+            height: max-content; /* Kluczowe dla płynności */
+            animation: scroll-vertical 30s linear infinite;
         }
-        .marquee-wrapper:hover {
-            animation-play-state: paused;
+        /* Maska zanikania na górze i dole */
+        .fade-mask-y {
+            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
         }
 
         /* Ukrycie paska przewijania w nawigacji */
@@ -83,20 +86,26 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <button onclick="toggleLanguage()" class="text-xs font-bold border border-white/20 px-3 py-1 rounded-full hover:bg-white/10 transition-colors uppercase w-12 text-center" id="lang-btn">
-                    EN
-                </button>
-                
-                <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-neon transition-colors" data-i18n="nav_contact">
-                    Współpraca
-                </a>
+                <button onclick="toggleLanguage()" class="text-xs font-bold border border-white/20 px-3 py-1 rounded-full hover:bg-white/10 transition-colors uppercase w-12 text-center" id="lang-btn">EN</button>
+                <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-neon transition-colors" data-i18n="nav_contact">Współpraca</a>
             </div>
         </div>
     </nav>
 
-    <section class="min-h-screen flex flex-col justify-center pt-24 relative overflow-hidden">
+    <section class="min-h-screen lg:h-[800px] flex items-center justify-center pt-20 relative overflow-hidden">
         
-        <div class="max-w-4xl mx-auto text-center px-6 z-10 mb-12">
+        <div class="hidden lg:flex absolute left-0 top-0 h-full w-64 fade-mask-y overflow-hidden items-center justify-start pl-8 z-0 pointer-events-none opacity-60">
+            <div class="marquee-vertical gap-8 py-8">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+L1" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[-2deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+L2" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[1deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+L3" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[-1deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+L1" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[-2deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+L2" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[1deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+L3" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[-1deg]">
+            </div>
+        </div>
+
+        <div class="max-w-3xl mx-auto text-center px-6 z-10 relative">
             <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-neon font-medium mb-8 tracking-wider uppercase" data-i18n="hero_badge">
                 ✨ Montaż short-form content
             </div>
@@ -118,25 +127,14 @@
             </div>
         </div>
 
-        <div class="w-full overflow-hidden relative mt-auto border-t border-white/5 bg-white/5 py-8 backdrop-blur-sm">
-            <div class="marquee-wrapper gap-6 px-3">
-                <div class="flex gap-6">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+1" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+2" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+3" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+4" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+5" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+6" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                </div>
-
-                <div class="flex gap-6">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+1" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+2" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+3" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+4" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+5" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://placehold.co/300x533/111/444?text=Reel+6" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
-                </div>
+        <div class="hidden lg:flex absolute right-0 top-0 h-full w-64 fade-mask-y overflow-hidden items-center justify-end pr-8 z-0 pointer-events-none opacity-60">
+            <div class="marquee-vertical gap-8 py-8" style="animation-direction: reverse;">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+R1" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[2deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+R2" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[-1deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+R3" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[1deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+R1" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[2deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+R2" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[-1deg]">
+                <img src="https://placehold.co/300x533/1a1a1a/333?text=Reel+R3" class="w-48 h-auto rounded-xl border border-white/10 shadow-xl rotate-[1deg]">
             </div>
         </div>
     </section>
@@ -224,44 +222,25 @@
             <h2 class="text-4xl md:text-5xl font-bold mb-12 font-display text-center" data-i18n="portfolio_title">Portfolio & Showreel</h2>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                
                 <div class="reel-card group">
-                    <iframe 
-                        class="absolute inset-0 w-full h-full object-cover"
-                        src="https://www.youtube.com/embed/55KkqrIlT7w?autoplay=1&mute=1&loop=1&playlist=55KkqrIlT7w&controls=0&showinfo=0&rel=0" 
-                        title="Project 1" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <iframe class="absolute inset-0 w-full h-full object-cover" src="https://www.youtube.com/embed/55KkqrIlT7w?autoplay=1&mute=1&loop=1&playlist=55KkqrIlT7w&controls=0&showinfo=0&rel=0" title="Project 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <div class="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 text-[10px] rounded-full pointer-events-none text-white opacity-0 group-hover:opacity-100 transition-opacity">Autoplay</div>
                 </div>
-
                 <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-2xl mb-2">👩‍🍳</span>
-                    <span class="text-xs font-bold" data-i18n="port_food">Food Content</span>
+                    <span class="text-2xl mb-2">👩‍🍳</span><span class="text-xs font-bold" data-i18n="port_food">Food Content</span>
                 </div>
-
                 <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-2xl mb-2">📚</span>
-                    <span class="text-xs font-bold" data-i18n="port_edu">Edukacja</span>
+                    <span class="text-2xl mb-2">📚</span><span class="text-xs font-bold" data-i18n="port_edu">Edukacja</span>
                 </div>
-
                 <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-2xl mb-2">🛍️</span>
-                    <span class="text-xs font-bold">E-commerce</span>
+                    <span class="text-2xl mb-2">🛍️</span><span class="text-xs font-bold">E-commerce</span>
                 </div>
-
                 <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-2xl mb-2">🎸</span>
-                    <span class="text-xs font-bold" data-i18n="port_music">Muzyka</span>
+                    <span class="text-2xl mb-2">🎸</span><span class="text-xs font-bold" data-i18n="port_music">Muzyka</span>
                 </div>
-
                 <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
-                    <span class="text-2xl mb-2">🏋️</span>
-                    <span class="text-xs font-bold">Fitness</span>
+                    <span class="text-2xl mb-2">🏋️</span><span class="text-xs font-bold">Fitness</span>
                 </div>
-
             </div>
         </div>
     </section>
@@ -425,8 +404,8 @@
                 nav_pricing: "Oferta",
                 nav_contact: "Współpraca",
                 hero_badge: "✨ Montaż short-form content",
-                hero_title_1: "ZAMIENIAM ZWYKŁE KLIPY",
-                hero_title_2: "W VIRALOWE ROLKI",
+                hero_title_1: "ZAMIENIAM SUROWY",
+                hero_title_2: "MATERIAŁ W VIRAL",
                 hero_desc: "Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. Instagram, TikTok, YouTube Shorts – wiem, co działa.",
                 btn_portfolio: "Zobacz realizacje",
                 btn_contact: "Napisz do mnie 💬",
@@ -494,8 +473,8 @@
                 nav_pricing: "Pricing",
                 nav_contact: "Collaboration",
                 hero_badge: "✨ Short-form content editor",
-                hero_title_1: "TURNING RAW CLIPS",
-                hero_title_2: "INTO VIRAL REELS",
+                hero_title_1: "TURNING RAW",
+                hero_title_2: "CLIPS INTO VIRAL",
                 hero_desc: "I create dynamic content that stops the scroll and builds your reach. Instagram, TikTok, YouTube Shorts – I know what works.",
                 btn_portfolio: "See my work",
                 btn_contact: "Contact me 💬",
