@@ -33,11 +33,11 @@
             transform: translateY(-5px);
         }
 
-        /* Portfolio Grid - wymuszenie formatu 9:16 */
+        /* Portfolio Grid - Mniejsze karty */
         .reel-card {
             aspect-ratio: 9/16;
             background-color: #111;
-            border-radius: 1rem;
+            border-radius: 0.75rem; /* Mniejsze zaokrąglenie dla mniejszych kart */
             overflow: hidden;
             border: 1px solid #222;
             position: relative;
@@ -45,19 +45,25 @@
         }
         .reel-card:hover {
             border-color: #ccff00;
-            transform: scale(1.02);
+            transform: scale(1.05);
+            z-index: 10;
         }
 
-        /* Zdjęcia w Hero (Statyczne, "artystyczne") */
-        .hero-img {
-            border-radius: 12px;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
+        /* Animacja Taśmy (Marquee) */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
-        .hero-img:hover { opacity: 1; z-index: 10; }
+        .marquee-wrapper {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+        .marquee-wrapper:hover {
+            animation-play-state: paused;
+        }
 
+        /* Ukrycie paska przewijania w nawigacji */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -88,75 +94,50 @@
         </div>
     </nav>
 
-    <section class="min-h-screen flex items-center justify-center pt-24 pb-12 px-6 relative overflow-hidden">
+    <section class="min-h-screen flex flex-col justify-center pt-24 relative overflow-hidden">
         
-        <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-purple-900/10 rounded-full blur-[120px]"></div>
+        <div class="max-w-4xl mx-auto text-center px-6 z-10 mb-12">
+            <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-neon font-medium mb-8 tracking-wider uppercase" data-i18n="hero_badge">
+                ✨ Montaż short-form content
+            </div>
+            <h1 class="text-5xl md:text-8xl font-black leading-tight mb-8 font-display">
+                <span data-i18n="hero_title_1">ZAMIENIAM SUROWY</span><br>
+                <span class="text-neon" data-i18n="hero_title_2">MATERIAŁ W VIRAL</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-xl mx-auto mb-10 font-light" data-i18n="hero_desc">
+                Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. 
+                Instagram, TikTok, YouTube Shorts – wiem, co działa.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#portfolio" class="bg-neon text-black px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform" data-i18n="btn_portfolio">
+                    Zobacz realizacje
+                </a>
+                <a href="#contact" class="px-8 py-4 rounded-full font-bold text-lg border border-white/20 hover:bg-white/5 transition-colors" data-i18n="btn_contact">
+                    Napisz do mnie 💬
+                </a>
+            </div>
         </div>
 
-        <div class="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-4 gap-8 items-center h-full">
-            
-            <div class="hidden lg:flex flex-col gap-6 items-end relative h-[600px] justify-center">
-                <div class="hero-img w-40 h-64 bg-gray-800 rotate-[-6deg] mr-8">
-                    <img src="https://placehold.co/300x500/1a1a1a/FFF?text=Reel+1" class="w-full h-full object-cover rounded-[11px]">
+        <div class="w-full overflow-hidden relative mt-auto border-t border-white/5 bg-white/5 py-8 backdrop-blur-sm">
+            <div class="marquee-wrapper gap-6 px-3">
+                <div class="flex gap-6">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+1" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+2" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+3" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+4" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+5" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+6" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
                 </div>
-                <div class="hero-img w-48 h-72 bg-gray-800 rotate-[3deg]">
-                    <img src="https://placehold.co/300x500/222/FFF?text=Reel+2" class="w-full h-full object-cover rounded-[11px]">
-                </div>
-                <div class="hero-img w-36 h-56 bg-gray-800 rotate-[-4deg] mr-4">
-                    <img src="https://placehold.co/300x500/333/FFF?text=Reel+3" class="w-full h-full object-cover rounded-[11px]">
+
+                <div class="flex gap-6">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+1" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+2" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+3" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+4" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+5" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://placehold.co/300x533/111/444?text=Reel+6" class="h-48 md:h-64 rounded-xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500">
                 </div>
             </div>
-
-            <div class="col-span-1 lg:col-span-2 text-center z-10">
-                <div class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-neon font-medium mb-8 tracking-wider uppercase" data-i18n="hero_badge">
-                    ✨ Montaż short-form content
-                </div>
-                <h1 class="text-5xl md:text-7xl font-black leading-tight mb-8 font-display">
-                    <span data-i18n="hero_title_1">ZAMIENIAM ZWYKŁE KLIPY</span><br>
-                    <span class="text-neon" data-i18n="hero_title_2">W VIRALOWE ROLKI</span>
-                </h1>
-                <p class="text-gray-400 text-lg md:text-xl max-w-xl mx-auto mb-12 font-light" data-i18n="hero_desc">
-                    Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. 
-                    Instagram, TikTok, YouTube Shorts – wiem, co działa.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#portfolio" class="bg-neon text-black px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform" data-i18n="btn_portfolio">
-                        Zobacz realizacje
-                    </a>
-                    <a href="#contact" class="px-8 py-4 rounded-full font-bold text-lg border border-white/20 hover:bg-white/5 transition-colors" data-i18n="btn_contact">
-                        Napisz do mnie 💬
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-3 gap-6 mt-16 border-t border-white/10 pt-8">
-                    <div>
-                        <div class="text-3xl md:text-4xl font-black text-white">500+</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-2" data-i18n="stat_reels">Rolek</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl md:text-4xl font-black text-white">50M+</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-2" data-i18n="stat_views">Wyświetleń</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl md:text-4xl font-black text-white">48h</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-2" data-i18n="stat_time">Czas realizacji</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hidden lg:flex flex-col gap-6 items-start relative h-[600px] justify-center">
-                <div class="hero-img w-36 h-56 bg-gray-800 rotate-[5deg] ml-4">
-                    <img src="https://placehold.co/300x500/444/FFF?text=Reel+4" class="w-full h-full object-cover rounded-[11px]">
-                </div>
-                <div class="hero-img w-48 h-72 bg-gray-800 rotate-[-3deg]">
-                    <img src="https://placehold.co/300x500/555/FFF?text=Reel+5" class="w-full h-full object-cover rounded-[11px]">
-                </div>
-                <div class="hero-img w-40 h-64 bg-gray-800 rotate-[6deg] ml-8">
-                    <img src="https://placehold.co/300x500/666/FFF?text=Reel+6" class="w-full h-full object-cover rounded-[11px]">
-                </div>
-            </div>
-
         </div>
     </section>
 
@@ -239,10 +220,10 @@
     </section>
 
     <section id="portfolio" class="py-24 px-6 bg-[#0a0a0a]">
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-5xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 font-display text-center" data-i18n="portfolio_title">Portfolio & Showreel</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 
                 <div class="reel-card group">
                     <iframe 
@@ -253,32 +234,32 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
-                    <div class="absolute bottom-4 right-4 bg-black/80 px-3 py-1 text-xs rounded-full pointer-events-none text-white">Autoplay</div>
+                    <div class="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 text-[10px] rounded-full pointer-events-none text-white opacity-0 group-hover:opacity-100 transition-opacity">Autoplay</div>
                 </div>
 
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500">
-                    <span class="text-4xl mb-2">👩‍🍳</span>
-                    <span data-i18n="port_food">Food Content</span>
-                    </div>
-
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500">
-                    <span class="text-4xl mb-2">📚</span>
-                    <span data-i18n="port_edu">Edukacja</span>
+                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
+                    <span class="text-2xl mb-2">👩‍🍳</span>
+                    <span class="text-xs font-bold" data-i18n="port_food">Food Content</span>
                 </div>
 
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500">
-                    <span class="text-4xl mb-2">🛍️</span>
-                    <span>E-commerce</span>
+                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
+                    <span class="text-2xl mb-2">📚</span>
+                    <span class="text-xs font-bold" data-i18n="port_edu">Edukacja</span>
                 </div>
 
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500">
-                    <span class="text-4xl mb-2">🎸</span>
-                    <span data-i18n="port_music">Muzyka</span>
+                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
+                    <span class="text-2xl mb-2">🛍️</span>
+                    <span class="text-xs font-bold">E-commerce</span>
                 </div>
 
-                <div class="reel-card group flex flex-col justify-center items-center text-gray-500">
-                    <span class="text-4xl mb-2">🏋️</span>
-                    <span>Fitness</span>
+                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
+                    <span class="text-2xl mb-2">🎸</span>
+                    <span class="text-xs font-bold" data-i18n="port_music">Muzyka</span>
+                </div>
+
+                <div class="reel-card group flex flex-col justify-center items-center text-gray-500 hover:text-white bg-[#1a1a1a]">
+                    <span class="text-2xl mb-2">🏋️</span>
+                    <span class="text-xs font-bold">Fitness</span>
                 </div>
 
             </div>
@@ -449,9 +430,6 @@
                 hero_desc: "Tworzę dynamiczny content, który zatrzymuje scroll i buduje Twoje zasięgi. Instagram, TikTok, YouTube Shorts – wiem, co działa.",
                 btn_portfolio: "Zobacz realizacje",
                 btn_contact: "Napisz do mnie 💬",
-                stat_reels: "Rolek",
-                stat_views: "Wyświetleń",
-                stat_time: "Czas realizacji",
                 about_title: "Kim jestem?",
                 about_p1: 'Jestem <span class="text-white font-medium">montażystą short-form contentu</span>, który żyje trendami i algorytmami. Przez ostatnie 3 lata pomogłem dziesiątkom twórców i marek <span class="text-neon">zwiększyć zasięgi i zaangażowanie</span>.',
                 about_p2: 'Wiem, że masz milion rzeczy na głowie – nagrywanie, prowadzenie biznesu, odpowiadanie na wiadomości. <span class="text-white font-medium">Montaż? To moja działka.</span>',
@@ -521,9 +499,6 @@
                 hero_desc: "I create dynamic content that stops the scroll and builds your reach. Instagram, TikTok, YouTube Shorts – I know what works.",
                 btn_portfolio: "See my work",
                 btn_contact: "Contact me 💬",
-                stat_reels: "Reels",
-                stat_views: "Views",
-                stat_time: "Turnaround",
                 about_title: "Who am I?",
                 about_p1: 'I am a <span class="text-white font-medium">short-form content editor</span> living by trends and algorithms. Over the last 3 years, I helped dozens of creators and brands <span class="text-neon">boost reach and engagement</span>.',
                 about_p2: 'I know you have a million things to do – filming, running a business, replying to DMs. <span class="text-white font-medium">Editing? That\'s my job.</span>',
