@@ -101,7 +101,10 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <button onclick="toggleLanguage()" class="text-xs font-bold border border-white/20 px-3 py-1 rounded-full hover:bg-white/10 transition-colors uppercase w-12 text-center" id="lang-btn">EN</button>
+                <button onclick="toggleLanguage()" id="lang-btn" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <span id="lang-text" class="text-xs font-bold uppercase">EN</span>
+                    <span id="lang-icon" class="text-base">🇬🇧</span>
+                </button>
                 <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-neon transition-colors" data-i18n="nav_contact">Współpraca</a>
             </div>
         </div>
@@ -568,7 +571,18 @@
 
         function toggleLanguage() {
             currentLang = currentLang === 'pl' ? 'en' : 'pl';
-            document.getElementById('lang-btn').innerText = currentLang === 'pl' ? 'EN' : 'PL';
+            
+            // Nowa logika dla przycisku z flagą
+            const langText = document.getElementById('lang-text');
+            const langIcon = document.getElementById('lang-icon');
+            
+            if (currentLang === 'pl') {
+                langText.innerText = 'EN';
+                langIcon.innerText = '🇬🇧';
+            } else {
+                langText.innerText = 'PL';
+                langIcon.innerText = '🇵🇱';
+            }
             
             const elements = document.querySelectorAll('[data-i18n]');
             elements.forEach(el => {
