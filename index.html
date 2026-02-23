@@ -388,33 +388,35 @@
             <p class="text-xl text-gray-400 mb-12" data-i18n="contact_sub">Napisz – odezwę się w ciągu 24h z konkretnymi propozycjami.</p>
             
             <form id="contact-form" class="space-y-4 text-left">
+                <input type="hidden" name="access_key" value="4838d51d-62c7-4194-b454-bbf6f590814d">
+                
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-2" data-i18n="form_name">Imię</label>
-                        <input type="text" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="Twoje imię">
+                        <input type="text" name="name" required class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="Twoje imię">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email</label>
-                        <input type="email" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="email@przyklad.pl">
+                        <input type="email" name="email" required class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="email@przyklad.pl">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2" data-i18n="form_platform">Platforma</label>
-                    <select class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors appearance-none">
+                    <select name="platform" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors appearance-none">
                         <option data-i18n="form_select">Wybierz platformę...</option>
-                        <option>Instagram Reels</option>
-                        <option>TikTok</option>
-                        <option>YouTube Shorts</option>
+                        <option value="Instagram Reels">Instagram Reels</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="YouTube Shorts">YouTube Shorts</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2" data-i18n="form_msg">Wiadomość</label>
-                    <textarea rows="4" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="..."></textarea>
+                    <textarea name="message" required rows="4" class="w-full bg-[#111] border border-[#222] rounded-xl p-4 text-white focus:border-neon focus:outline-none transition-colors" placeholder="..."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-white text-black font-bold text-xl py-4 rounded-xl hover:bg-neon transition-colors" data-i18n="form_btn">
+                <button type="submit" id="submit-btn" class="w-full bg-white text-black font-bold text-xl py-4 rounded-xl hover:bg-neon transition-colors" data-i18n="form_btn">
                     Wyślij Wiadomość 🚀
                 </button>
-                <div id="form-message" class="hidden text-center text-neon text-sm mt-4">Wiadomość wysłana! (Demo)</div>
+                <div id="form-message" class="hidden text-center text-neon text-sm mt-4">Wiadomość wysłana! Odezwę się wkrótce.</div>
             </form>
         </div>
     </section>
@@ -435,14 +437,52 @@
         });
 
         // Form Logic
+        // Form Logic
         const contactForm = document.getElementById('contact-form');
         const formMessage = document.getElementById('form-message');
-        
-        contactForm.addEventListener('submit', (e) => {
+        const submitBtn = document.getElementById('submit-btn');
+
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            formMessage.classList.remove('hidden');
-            contactForm.reset();
-            setTimeout(() => { formMessage.classList.add('hidden'); }, 3000);
+
+            // Zbieramy dane z formularza
+            const formData = new FormData(contactForm);
+
+            // Zapisujemy oryginalny tekst przycisku
+            const originalText = submitBtn.innerHTML;
+
+            // Zmieniamy tekst i blokujemy przycisk
+            submitBtn.innerHTML = "Wysyłanie... ⏳";
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Sukces - pokazujemy ładny komunikat pod spodem
+                    formMessage.classList.remove('hidden');
+                    contactForm.reset();
+                    
+                    // Chowamy komunikat po 5 sekundach
+                    setTimeout(() => { 
+                        formMessage.classList.add('hidden'); 
+                    }, 5000);
+                } else {
+                    alert("Błąd: " + data.message);
+                }
+
+            } catch (error) {
+                alert("Coś poszło nie tak. Spróbuj ponownie.");
+            } finally {
+                // Przywracamy przycisk do normalności
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
 
         // --- LANGUAGE SWITCHER LOGIC ---
