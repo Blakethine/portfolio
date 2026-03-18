@@ -318,6 +318,95 @@
             </div>
         </div>
     </section>
+  <script src="https://cdn.tailwindcss.com"></script>
+<script>
+    // Konfiguracja kolorów dla Tailwinda, żeby pasowały do neonowego motywu
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    neon: '#ccff00', // Neonowy zielono-żółty
+                },
+            },
+        }
+    }
+</script>
+<style>
+    /* Dodajemy efekt "neonowego blasku" dla wartości liczbowych */
+    .neon-text-glow {
+        text-shadow: 0 0 10px rgba(204, 255, 0, 0.7);
+    }
+</style>
+
+<section id="stats" class="bg-black py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+
+            <div class="stat-card flex flex-col items-center p-8 bg-[#0f0f0f] rounded-2xl border border-gray-800 transition-transform hover:scale-105">
+                <span class="js-counter text-7xl font-extrabold text-neon neon-text-glow tracking-tight" data-count="3">0</span>
+                <span class="text-6xl font-extrabold text-neon neon-text-glow tracking-tight -ml-2">+</span>
+                <p class="mt-4 text-xl text-gray-400 font-medium tracking-wide">Lat doświadczenia</p>
+            </div>
+
+            <div class="stat-card flex flex-col items-center p-8 bg-[#0f0f0f] rounded-2xl border border-gray-800 transition-transform hover:scale-105">
+                <span class="js-counter text-7xl font-extrabold text-white tracking-tight" data-count="200">0</span>
+                <span class="text-6xl font-extrabold text-white tracking-tight -ml-2">+</span>
+                <p class="mt-4 text-xl text-gray-400 font-medium tracking-wide">Zmontowane Rolki i Filmy</p>
+            </div>
+
+            <div class="stat-card flex flex-col items-center p-8 bg-[#0f0f0f] rounded-2xl border border-gray-800 transition-transform hover:scale-105">
+                <span class="js-counter text-7xl font-extrabold text-neon neon-text-glow tracking-tight" data-count="30">0</span>
+                <span class="text-6xl font-extrabold text-neon neon-text-glow tracking-tight -ml-2">+</span>
+                <p class="mt-4 text-xl text-gray-400 font-medium tracking-wide">Zadowolonych klientów</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    // Funkcja licząca
+    function countUp(element, start, end, duration) {
+        let current = start;
+        const range = end - start;
+        const increment = end > start ? 1 : -1;
+        const stepTime = Math.abs(Math.floor(duration / range));
+        const timer = setInterval(function() {
+            current += increment;
+            element.textContent = current;
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    }
+
+    // Uruchamiamy liczniki tylko, gdy znajdą się w polu widzenia (Intersection Observer API)
+    function startCounting(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const targetValue = parseInt(element.getAttribute('data-count'));
+                
+                // Uruchomienie animacji od 0 do wartości docelowej w ciągu 1,5 sekundy
+                countUp(element, 0, targetValue, 1500); 
+                
+                // Przestajemy obserwować element, żeby licznik nie uruchamiał się przy każdym scrollu
+                observer.unobserve(element);
+            }
+        });
+    }
+
+    // Konfiguracja obserwatora
+    const observerOptions = {
+        threshold: 0.5 // Uruchom, gdy 50% elementu jest widoczne
+    };
+
+    const observer = new IntersectionObserver(startCounting, observerOptions);
+
+    // Znajdujemy wszystkie liczniki i dodajemy je do obserwatora
+    document.querySelectorAll('.js-counter').forEach(counter => {
+        observer.observe(counter);
+    });
+</script>
     <section class="py-24 px-6 bg-[#0a0a0a]">
         <div class="max-w-5xl mx-auto bg-[#111] rounded-[2.5rem] border border-neon/20 p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden group hover:border-neon/60 transition-colors duration-500 shadow-2xl shadow-neon/5">
             
